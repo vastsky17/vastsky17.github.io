@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include header.html %}
+</head>
+<body>
+
+
+<div id="app" class="flex-row">
+    <!--侧边导航栏-->
+    <nav id="tags">
+        <a href="/" id="avatar" style="background-image:url({{ site.avatar }})"></a>
+
+        <ul id="tags__ul">
+            <li class="tags__li tags-btn" :class="clickedCate === '' ? 'active' : ''" @click="doChangeCate('')">All</li>
+            <li class="tags__li tags-btn" :class="clickedCate === name ? 'active' : ''" v-for="(name,idx) in categories"
+                :key="idx" v-text="name" @click="doChangeCate(name)"></li>
+        </ul>
+
+        <div id="tags__bottom">
+            <a href="mailto:{{ site.author.email }}" id="icon-email" class="tags-btn fontello"></a>
+            <a href="https://github.com/dejavuzhou" id="icon-feed" class="tags-btn fontello"></a>
+        </div>
+    </nav> <!-- end #tags -->
+    <!--文章列表-->
+    <div class="posts-list flex-column" v-show="isShowArticleList">
+        <form action="" id="search-form">
+            <a href="/" id="mobile-avatar" style="background-image:url({{ site.avatar }})" @click="doToggleArticleList"></a>
+            <!-- NOTE: input field is disabled by default -->
+            <input id="search-input" type="text" placeholder="Search..." v-model.trim="search" autocomplete="off">
+        </form>
+        <section class="article-list">
+            <a :href="item.url" v-for="item in articles" :key="item.url" class="pl__all" @click.stop.prevent="doView(item)">
+                <span class="pl__circle"></span>
+                <span class="pl__title" v-text="item.title"></span>
+                <span class="pl__date" v-text="humanTime(item.time)"></span>
+            </a>
+        </section>
+    </div> <!-- end #posts-list -->
+    <button @click="doToggleArticleList" id="js-fullscreen"><span id="icon-arrow" class="fontello" class="fullscreen"></span></button>
+    <!--===thisExplodePointPjax===-->
+    <div ref="post" class="post-body" id="post">
+        {{ content }}
+
+        {% include base_copyright.html %}
+
+    </div>
+    <!--===thisExplodePointPjax===-->
+    <!--markdwon 导航栏-->
+    <div id="post__toc-trigger">
+        <div id="post__toc">
+            <span id="post__toc-title">目录</span>
+            <ul id="post__toc-ul"></ul>
+        </div>
+    </div>
+    <!-- end #post -->
+
+</div>
+
+{% include base_js.html %}
+
+
+</body>
+</html>

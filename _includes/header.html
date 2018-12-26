@@ -1,0 +1,41 @@
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<!--[if lte IE 9]>
+<meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
+
+<title>{{ page.title }} | {{ site.title }}</title>
+<meta name="author" content="{{ site.author.name }}">
+{% if page.keywords %}
+<meta name="keywords" content="{{ page.keywords }}">
+{% endif %}
+
+{% if page.description  %}
+<meta name="description " content="{{ page.description | default: page.excerpt | strip_html }}">
+{% endif %}
+<meta name="baidu-site-verification" content="kFeuTdrIEE"/>
+
+<link rel="shortcut icon" href="{{ site.favicon }}"/>
+<link rel="icon" href="{{ site.favicon }}" sizes="32x32"/>
+<link rel="icon" href="{{ site.favicon }}" sizes="192x192"/>
+<link rel="apple-touch-icon-precomposed" href="{{ site.favicon }}"/>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+
+<meta property="wb:webmaster" content="da7999b4ae4dcf62"/>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129013660-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-129013660-5');
+
+    var isMobile = false;
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        isMobile = true
+    }
+
+</script>
