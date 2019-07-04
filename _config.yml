@@ -28,7 +28,7 @@ logo: /assets/image/libra_icon.jpg
 plugins:
 
 # 定义你的分类
-categories: News Video Tech Finance Wiki
+categories: News Video Tech Finance
 
 # 排除文件夹
 exclude: [robot,util,config,tutorials,main.go,install.sh,jekyll.sh,Gemfile,Gemfile.lock,jekyll_run.sh, codebase]
