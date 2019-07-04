@@ -75,8 +75,7 @@ a {
 /*---------------------------------*\
    Tags
 \*---------------------------------*/
-#tags {
-    width: 165px;
+.nav-side {
     height: 100vh;
     background: #474d57;
     border-right: 1px solid #3c4149;
@@ -89,20 +88,16 @@ a {
     user-select: none;
 }
 
-@media screen and (max-width: 585px) {
-    #tags {
-        display: none;
-    }
-}
+
 
 #avatar {
-    width: 100px;
-    height: 100px;
-    margin: 30px auto;
+    width: 120px;
+    height: 120px;
+    margin: 2rem;
     border-radius: 50%;
     box-shadow: 0 0 0px 4px white, 0 0 4px 4px #eee;
     background-repeat: no-repeat;
-    background-size: 100px 100px;
+    background-size: 120px 120px;
     overflow: hidden;
     display: block;
 }
@@ -115,15 +110,7 @@ a {
     animation: spin .35s linear infinite;
 }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    #avatar {
-        -webkit-background-size: 100px 100px;
-        -moz-background-size: 100px 100px;
-        background-size: 100px 100px;
-    }
-}
-
-#tags__ul {
+.nav-side > ul{
     margin: 0;
     padding: 0;
     font-size: 17px;

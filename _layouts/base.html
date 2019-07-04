@@ -8,12 +8,11 @@
 
 <div id="app" class="flex-row">
     <!--侧边导航栏-->
-    <nav id="tags">
+    <nav class="nav-side" >
         <a href="/" id="avatar" style="background-image:url({{ site.avatar }})" class="spinner-icon"></a>
 
-        <ul id="tags__ul">
-            <li class="tags__li tags-btn" :class="clickedCate === '' ? 'active' : ''" @click="doChangeCate('')"
-                @mouseover="doSetPostList(true)" @mouseleave="doSetPostList(false)">All
+        <ul id="tags__ul" @mouseover="doSetPostList(true)" @mouseleave="doSetPostList(false)">
+            <li class="tags__li tags-btn" :class="clickedCate === '' ? 'active' : ''" @click="doChangeCate('')">All
             </li>
             <li class="tags__li tags-btn" :class="clickedCate === name ? 'active' : ''" v-for="(name,idx) in categories"
                 :key="idx" v-text="name" @click="doChangeCate(name)"></li>
@@ -28,8 +27,7 @@
     </nav> <!-- end #tags -->
     <!--文章列表-->
     <transition name="fade">
-        <div class="posts-list flex-column" v-show="showPostList" @mouseover="doSetPostList(true)"
-             @mouseleave="doSetPostList(false)">
+        <div class="posts-list flex-column" v-show="showPostList" @mouseover="doSetPostList(true)" @mouseleave="doSetPostList(false)">
             <form action="" id="search-form">
                 <a href="/" id="mobile-avatar" style="background-image:url({{ site.avatar }})"
                    @click="doToggleArticleList"></a>
