@@ -34,7 +34,7 @@ function createMarkdownIndex() {
         if (h2d.tagName === "H2") {
             tocHtml += '<li class="post__toc-li post__toc-h2"><i class="fa fa-anchor"></i> <a href="#' + idh2 + '" class="js-anchor-link">' + h2d.innerText + '</a></li>';
         } else {
-            tocHtml += '<li class="post__toc-li post__toc-h3"><i class="fa fa-anchor"></i> <a href="#' + idh2 + '" class="js-anchor-link">' + h2d.innerText + '</a></li>';
+            tocHtml += '<li class="post__toc-li post__toc-h3"><i class="fa fa-superpowers"></i> <a href="#' + idh2 + '" class="js-anchor-link">' + h2d.innerText + '</a></li>';
         }
     }
     document.getElementById('post__toc-ul').innerHTML = tocHtml
