@@ -109,7 +109,8 @@ new Vue({
             }
             var tocHtml = '';
             var h2ds = document.querySelectorAll("h2,h3")
-            for (let h2d  of h2ds) {
+            for (var i = 0; i < h2ds.length; i++) {
+                var h2d = h2ds[i];
                 var someHash = this.randomString();
                 h2d.setAttribute('id', someHash)
                 if (h2d.tagName === "H2") {
