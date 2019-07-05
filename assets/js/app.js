@@ -47,7 +47,18 @@ new Vue({
         },
     },
     updated: function () {
-        this.createMarkdownIndex()
+        var meta = (document.getElementsByClassName('article-meta'))[0];
+        var indexDom = document.getElementById('article-index-ul')
+
+        var path = window.location.pathname;
+        if (path === '/404' || path === '/') {
+            meta.style.visibility = 'hidden'
+            indexDom.style.visibility = 'hidden'
+        } else {
+            meta.style.visibility = 'visible'
+            indexDom.style.visibility = 'visible'
+            this.createMarkdownIndex()
+        }
     },
     created: function () {
         this.showPostList = window.location.pathname === '/';
@@ -91,7 +102,6 @@ new Vue({
                 var doc = template.getElementsByClassName('pjax-source');
                 var articleDom = doc[0];
                 vm.pjaxHtml = articleDom.innerHTML
-                vm.createMarkdownIndex()
             }).catch(function (error) {
                 vm.pjaxHtml = '';
                 console.log(error);
@@ -101,12 +111,12 @@ new Vue({
             this.showPostList = val;
         },
         createMarkdownIndex: function () {
+            var pathName = window.location.pathname;
             //设置右侧文章内容idx
-            var indexDom = document.getElementById('article-index-ul')
-            if (window.location.pathname === '/404') {
-                indexDom.style.visibility = 'hidden';
+            if (pathName === '/404' || pathName === '/') {
                 return
             }
+            var indexDom = document.getElementById('article-index-ul')
             var tocHtml = '';
             var h2ds = document.querySelectorAll("h2,h3")
             for (var i = 0; i < h2ds.length; i++) {
