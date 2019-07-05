@@ -215,7 +215,7 @@ a {
 
 .tags-items-list {
     margin-top: 15px;
-    margin-left: 2rem;
+    margin-left: 0rem;
     margin-bottom: 15px;
 }
 
@@ -458,7 +458,7 @@ a {
 }
 
 .addon {
-    padding: 0 3rem;
+    padding: 0 0.5rem;
 }
 
 #pjax.fadeIn {
@@ -491,8 +491,8 @@ a {
 }
 
 article p {
-    text-indent: 2rem;
-    margin-left: 2rem;
+    text-indent: 0;
+    margin-left: 0;
 }
 
 h2, h3, h4, h5, h6 {
@@ -599,7 +599,7 @@ h5:before{
 }
 
 .article-body {
-    margin: 0 3rem;
+    margin: 0 0.5rem;
 }
 
 article img {

@@ -8,7 +8,7 @@
 
 <div id="app" class="flex-row">
     <!--侧边导航栏-->
-    <nav class="nav-side">
+    <nav class="nav-side" v-if="!isMobile">
         <a href="/" id="avatar" style="background-image:url({{ site.avatar }})" class="spinner-icon"></a>
 
         <ul id="tags__ul" @mouseover="doSetPostList(true)" @mouseleave="doSetPostList(false)">
@@ -31,6 +31,7 @@
         <!--文章列表-->
         <transition name="fade">
             <div class="posts-list" v-show="showPostList" @mouseover="doSetPostList(true)"
+                 v-if="!isMobile"
                  @mouseleave="doSetPostList(false)">
                 <form action="" id="search-form">
                     <input id="search-input" type="text" placeholder="Search..." v-model.trim="search" autocomplete="off">
@@ -46,12 +47,12 @@
             </div> <!-- end #posts-list -->
         </transition>
 
-        <!--===thisExplodePointPjax===-->
-        <div class="pjax-source" v-if="pjaxHtml === ''">
+        <article  v-if="pjaxHtml === ''" class="article-body">
+            <!--===thisExplodePointPjax===-->
             {{ content }}
-        </div>
-        <!--===thisExplodePointPjax===-->
-        <div v-if="pjaxHtml !== ''" v-html="pjaxHtml"></div>
+            <!--===thisExplodePointPjax===-->
+        </article>
+        <article v-if="pjaxHtml !== ''" v-html="pjaxHtml" class="article-body"></article>
         {% include addons.html %}
         {% include base_copyright.html %}
     </div>

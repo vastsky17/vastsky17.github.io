@@ -23,6 +23,7 @@ axios.interceptors.response.use(function (response) {
 new Vue({
     el: '#app',
     data: {
+        isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
         articleTitle: '',
         articleUrl: '',
         pjaxHtml: '',
@@ -47,9 +48,9 @@ new Vue({
         },
     },
     updated: function () {
+
         var meta = (document.getElementsByClassName('article-meta'))[0];
         var indexDom = document.getElementById('article-index-ul')
-
         var path = window.location.pathname;
         if (path === '/404' || path === '/') {
             meta.style.visibility = 'hidden'
@@ -96,12 +97,8 @@ new Vue({
             this.doCommentSection()
             var vm = this;
             axios.get(url).then(function (res) {
-                var template = document.createElement('div');
                 var parts = res.data.trim().split("<!--===thisExplodePointPjax===-->")
-                template.innerHTML = parts[1];
-                var doc = template.getElementsByClassName('pjax-source');
-                var articleDom = doc[0];
-                vm.pjaxHtml = articleDom.innerHTML
+                vm.pjaxHtml = parts[1];
             }).catch(function (error) {
                 vm.pjaxHtml = '';
                 console.log(error);
