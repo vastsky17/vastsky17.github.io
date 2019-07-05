@@ -8,7 +8,7 @@
 
 <div id="app" class="flex-row">
     <!--侧边导航栏-->
-    <nav class="nav-side" >
+    <nav class="nav-side">
         <a href="/" id="avatar" style="background-image:url({{ site.avatar }})" class="spinner-icon"></a>
 
         <ul id="tags__ul" @mouseover="doSetPostList(true)" @mouseleave="doSetPostList(false)">
@@ -25,40 +25,43 @@
             <a href="https://libragen.cn" class="fa fa-money"></a>
         </div>
     </nav> <!-- end #tags -->
-    <!--文章列表-->
-    <transition name="fade">
-        <div class="posts-list flex-column" v-show="showPostList" @mouseover="doSetPostList(true)" @mouseleave="doSetPostList(false)">
-            <form action="" id="search-form">
-                <a href="/" id="mobile-avatar" style="background-image:url({{ site.avatar }})"
-                   @click="doToggleArticleList"></a>
-                <!-- NOTE: input field is disabled by default -->
-                <input id="search-input" type="text" placeholder="Search..." v-model.trim="search" autocomplete="off">
-            </form>
-            <section class="article-list">
-                <a :href="item.url" v-for="item in articles" :key="item.url" class="pl__all"
-                   @click.stop.prevent="doView(item)">
-                    <span class="pl__circle"></span>
-                    <span class="pl__title" v-text="item.title"></span>
-                    <span class="pl__date" v-text="humanTime(item.time)"></span>
-                </a>
-            </section>
-        </div> <!-- end #posts-list -->
-    </transition>
 
 
+    <div class="main">
+        <!--文章列表-->
+        <transition name="fade">
+            <div class="posts-list" v-show="showPostList" @mouseover="doSetPostList(true)"
+                 @mouseleave="doSetPostList(false)">
+                <form action="" id="search-form">
+                    <input id="search-input" type="text" placeholder="Search..." v-model.trim="search" autocomplete="off">
+                </form>
+                <section class="article-list">
+                    <a :href="item.url" v-for="item in articles" :key="item.url" class="post-li-a"
+                       @click.stop.prevent="doView(item)">
+                        <span class="post-li-dot"></span>
+                        <span class="post-li-title" v-text="item.title"></span>
+                        <span class="post-li-time" v-text="humanTime(item.time)"></span>
+                    </a>
+                </section>
+            </div> <!-- end #posts-list -->
+        </transition>
 
         <!--===thisExplodePointPjax===-->
-        <div ref="post" class="post-body" id="post">
+        <div class="pjax-source" v-if="pjaxHtml === ''">
             {{ content }}
-            {% include base_copyright.html %}
         </div>
         <!--===thisExplodePointPjax===-->
+        <div v-if="pjaxHtml !== ''" v-html="pjaxHtml"></div>
+        {% include addons.html %}
+        {% include base_copyright.html %}
+    </div>
+
 
     <!--markdwon 导航栏-->
-    <div id="post__toc-trigger">
+    <div id="article-index">
         <div id="post__toc">
-            <span id="post__toc-title">目录</span>
-            <ul id="post__toc-ul"></ul>
+            <span id="article-index-title">目录</span>
+            <ul id="article-index-ul"></ul>
         </div>
     </div>
     <!-- end #post -->

@@ -1,0 +1,22 @@
+<div class="addon">
+
+    <h2 id="tag_h2">分类标签</h2>
+    <div class="tags-items-list">
+        {% for tag in site.tags %}
+        <a href="/404#{{ tag[0] }}" class="post-tag">{{ tag[0] }}</a>
+        {% endfor %}
+    </div>
+
+    <div class="article-share">
+        <a class="fa fa-twitter"
+           href="https://twitter.com/intent/tweet?url={{ site.url | append: page.url | url_encode }}&text={{'『' | append: page.title | append: '』' | append: page.description | url_encode}}"
+           target="_blank"></a>
+        <a class="fa fa-share-alt"
+           href="https://www.evernote.com/clip.action?url={{ site.url | append: page.url | url_encode }}&title={{'『' | append: page.title | append: '』' | append: page.description | url_encode}}"
+           target="_blank"></a>
+        <a class="fa fa-weibo"
+           href="http://v.t.sina.com.cn/share/share.php?url={{ site.url | append: page.url | url_encode }}&title={{'『' | append: page.title | append: '』' | append: page.description | url_encode}}"
+           target="_blank"></a>
+    </div> <!-- end #post__share -->
+    <span id="IDCommentsPostTitle" style="display:none"></span>
+</div>

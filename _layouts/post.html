@@ -1,19 +1,49 @@
 ---
 layout: base
 ---
-    {% include post_ldjson.html %}
-<article id="post__content">
-    <h1 id="post__title" data-identifier="{{ page.date | date: "%Y-%m-%d" }}">{{ page.title }}</h1>
-    {% include post_breadcrumb.html %}
-    {% include post_meta.html %}
-    {% include post_coverage.html %}
+{% include post_ldjson.html %}
+
+<article class="article-body">
+    <h1 class="article-body-title" data-identifier="{{ page.date | date: "%Y-%m-%d" }}">{{ page.title }}</h1>
+
+    <div class="article-meta">
+        <ol vocab="http://schema.org/" typeof="BreadcrumbList" class="breadcrumb">
+            <li property="itemListElement" typeof="ListItem">
+                <a property="item" typeof="WebPage"
+                   href="{{site.url}}">
+                    <span property="name">{{site.title}}</span></a>
+                <meta property="position" content="1">
+            </li>
+            <li property="itemListElement" typeof="ListItem">
+                <a property="item" typeof="WebPage"
+                   href="{{site.url}}/404#{{ page.tags[0] | default: " libra" }}">
+                <span property="name">{{ page.tags[0] | default: "libra" }}</span></a>
+                <meta property="position" content="2">
+            </li>
+            <li property="itemListElement" typeof="ListItem">
+                <a property="item" typeof="WebPage"
+                   href="{{site.url}}{{page.id}}">
+                    <span property="name">{{ page.title}}</span></a>
+                <meta property="position" content="3">
+            </li>
+        </ol>
+
+        <div class="post-meta">
+            <span><i class="fa fa-star"></i><i>{{ page.score | default: 4.5 }}</i></span>
+            <span><i class="fa fa-user"></i><i>{{ page.author | default: site.author.name }}</i></span>
+            <span><i class="fa fa-th-list"></i><a href="/404#{{page.tags[0]|default:libra}}"><i>{{page.tags[0]|default:libra}}</i></a></span>
+            <span><i class="fa fa-clock-o"></i><time>{{ page.date | date:"%Y-%m-%d" }}</time></span>
+        </div>
+    </div>
+    {% if page.coverage %}
+    <div  class="article-coverage">
+        <image src="/assets/image/{{page.coverage}}" alt="{{page.title}}" ></image>
+    </div>
+    {% endif %}
     {{ content }}
 </article> <!-- end #post__content -->
 
-<div class="addon">
-    {% include addon_tags.html %}
-    {% include addon_share.html %}
-</div>
+
 
 
 

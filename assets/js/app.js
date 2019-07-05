@@ -1,53 +1,3 @@
-function randomString() {
-    var ID = "",
-        alphabet = "abcdefghijklmnopqrstuvwxyz";
-
-    for (var i = 0; i < 5; i++) {
-        ID += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-    }
-    return ID;
-}
-
-function pjax(url) {
-    axios.get(url).then(function (res) {
-        var template = document.createElement('div');
-        var parts = res.data.trim().split("<!--===thisExplodePointPjax===-->")
-        template.innerHTML = parts[1];
-        var doc = template.getElementsByClassName('post-body');
-
-        var articleDom = doc[0];
-
-
-        document.getElementById('post').innerHTML = articleDom.innerHTML
-        createMarkdownIndex()
-    }).catch(function (error) {
-        console.log(error);
-    });
-};
-
-function createMarkdownIndex() {
-    var tocHtml = '';
-    var h2ds = document.querySelectorAll("h2,h3")
-    for (let h2d  of h2ds) {
-        idh2 = randomString();
-        h2d.setAttribute('id', idh2)
-        if (h2d.tagName === "H2") {
-            tocHtml += '<li class="post__toc-li post__toc-h2"><i class="fa fa-anchor"></i> <a href="#' + idh2 + '" class="js-anchor-link">' + h2d.innerText + '</a></li>';
-        } else {
-            tocHtml += '<li class="post__toc-li post__toc-h3"><i class="fa fa-superpowers"></i> <a href="#' + idh2 + '" class="js-anchor-link">' + h2d.innerText + '</a></li>';
-        }
-    }
-    document.getElementById('post__toc-ul').innerHTML = tocHtml
-};
-window.onpopstate = function (e) {
-    var state = e.state;
-    if (state !== null) {
-        document.title = state.title;
-        pjax(state.url);
-    } else {
-        document.title = 'tech.mojotv.cn';
-    }
-};
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent
@@ -73,6 +23,9 @@ axios.interceptors.response.use(function (response) {
 new Vue({
     el: '#app',
     data: {
+        articleTitle: '',
+        articleUrl: '',
+        pjaxHtml: '',
         categories: null,
         articles: null,
         all: null,
@@ -94,12 +47,23 @@ new Vue({
         },
     },
     updated: function () {
-
+        this.createMarkdownIndex()
     },
     created: function () {
         this.showPostList = window.location.pathname === '/';
+        var vm = this;
+        window.onpopstate = function (e) {
+            var state = e.state;
+            if (state !== null) {
+                document.title = state.title;
+                vm.doView(state)
+            } else {
+                document.title = window.location.hostname;
+            }
+        };
     },
     mounted: function () {
+        this.doCommentSection();
         var vm = this
         axios.get('/api/article-list.json').then(function (response) {
             vm.categories = response.data.categories;
@@ -108,13 +72,8 @@ new Vue({
         }).catch(function (error) {
             console.log(error);
         });
-        createMarkdownIndex()
     },
     methods: {
-        doToggleArticleList: function () {
-            this.showPostList = !this.showPostList;
-        },
-
         doView: function (item) {
             var url = item.url;
             var title = item.title;
@@ -123,12 +82,57 @@ new Vue({
                 title: title
             }, title, url);
             document.title = title;
-            pjax(url)
+            this.doCommentSection()
+            var vm = this;
+            axios.get(url).then(function (res) {
+                var template = document.createElement('div');
+                var parts = res.data.trim().split("<!--===thisExplodePointPjax===-->")
+                template.innerHTML = parts[1];
+                var doc = template.getElementsByClassName('pjax-source');
+                var articleDom = doc[0];
+                vm.pjaxHtml = articleDom.innerHTML
+                vm.createMarkdownIndex()
+            }).catch(function (error) {
+                vm.pjaxHtml = '';
+                console.log(error);
+            });
         },
         doSetPostList: function (val) {
             this.showPostList = val;
         },
-
+        createMarkdownIndex: function () {
+            //设置右侧文章内容idx
+            var indexDom = document.getElementById('article-index-ul')
+            if (window.location.pathname === '/404') {
+                indexDom.style.visibility = 'hidden';
+                return
+            }
+            var tocHtml = '';
+            var h2ds = document.querySelectorAll("h2,h3")
+            for (let h2d  of h2ds) {
+                var someHash = this.randomString();
+                h2d.setAttribute('id', someHash)
+                if (h2d.tagName === "H2") {
+                    tocHtml += '<li class="article-index-li article-index-h2"><i class="fa fa-line-chart"></i> <a href="#' + someHash + '" class="js-anchor-link">' + h2d.innerText + '</a></li>';
+                } else {
+                    tocHtml += '<li class="article-index-li article-index-h3"><i class="fa fa-superpowers"></i> <a href="#' + someHash + '" class="js-anchor-link">' + h2d.innerText + '</a></li>';
+                }
+            }
+            indexDom.innerHTML = tocHtml
+        },
+        doCommentSection: function () {
+            var idcomments_acct = '43b5f1195c4058c8e3297caca2d70c2a';
+            var idcomments_post_title = document.title.replace(/#/, "%23");
+            var idcomments_post_url = window.location.href;
+            var idcomments_post_id = window.location.href;
+            idcomments_post_id = encodeURIComponent(idcomments_post_id);
+            idcomments_post_url = encodeURIComponent(idcomments_post_url);
+            idcomments_post_title = encodeURIComponent(idcomments_post_title);
+            var commentScript = document.createElement("script");
+            commentScript.type = "text/javascript";
+            commentScript.src = "https://intensedebate.com/js/genericCommentWrapper2.php?acct=" + idcomments_acct + "&postid=" + idcomments_post_id + "&title=" + idcomments_post_title + "&url=" + idcomments_post_url;
+            document.getElementsByTagName("head")[0].appendChild(commentScript);
+        },
         doChangeCate: function (val) {
             this.showPostList = true;
             this.search = '';
@@ -139,17 +143,24 @@ new Vue({
             }
             this.articles = this.all.filter(post => post.cate.toUpperCase() === val.toUpperCase());
         },
+        randomString: function () {
+            var ID = "",
+                alphabet = "abcdefghijklmnopqrstuvwxyz";
 
+            for (var i = 0; i < 5; i++) {
+                ID += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+            }
+            return ID;
+        },
         humanTime: function (timeS) {
-            var date = new Date(timeS)
+            var date = new Date(timeS);
             var delta = Math.round((+new Date - date) / 1000);
-            var minute = 60,
-                hour = minute * 60,
-                day = hour * 24,
-                week = day * 7;
-            mm = day * 31;
+            var minute = 60;
+            var hour = minute * 60;
+            var day = hour * 24;
+            var week = day * 7;
+            var mm = day * 31;
             var fuzzy;
-
             if (delta < 30) {
                 fuzzy = '现在';
             } else if (delta < minute) {
@@ -175,5 +186,4 @@ new Vue({
             return fuzzy
         }
     }
-})
-;
+});
