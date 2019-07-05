@@ -32,7 +32,7 @@ new Vue({
         all: null,
         search: "",
         clickedCate: "",
-        showPostList: true,
+        showPostList: false,
     },
     watch: {
         search: function (val) {
@@ -56,9 +56,9 @@ new Vue({
             meta.style.visibility = 'hidden'
             indexDom.style.visibility = 'hidden'
         } else {
+            this.createMarkdownIndex()
             meta.style.visibility = 'visible'
             indexDom.style.visibility = 'visible'
-            this.createMarkdownIndex()
         }
     },
     created: function () {

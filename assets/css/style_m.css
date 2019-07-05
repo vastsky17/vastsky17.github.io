@@ -666,6 +666,7 @@ kbd {
 }
 
 #article-index {
+    visibility: hidden;
     width: 300px;
     padding-left: 40px;
     position: fixed;
