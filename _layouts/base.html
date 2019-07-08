@@ -53,8 +53,44 @@
             <!--===thisExplodePointPjax===-->
         </article>
         <article v-if="pjaxHtml !== ''" v-html="pjaxHtml" class="article-body"></article>
+
+        <!--评论框-->
+        <section class="comment">
+
+
+
+            <div class="comment-thread" v-for="(obj,idx) in commentList">
+                <img src="/assets/image/libra_icon.jpg" class="comment-thread-avatar">
+                <div>
+                    <p class="comment-thread-text" v-text="obj.content"> </p>
+                    <section class="comment-thread-addons">
+                        <span> <i class="fa fa-clock-o comment-thread-time"></i>{{humanTime(obj.CreatedAt)}}</span>
+                        <a class="" title="like"><i class="fa fa-thumbs-up"></i> </a>
+                        <a class="" title="dislike"><i class="fa fa-thumbs-down"></i></a>
+                        <a class="" title="thank"><i class="fa fa-trophy"></i></a>
+                        <a class="" title="replay"><i class="fa fa-reply"></i></a>
+                    </section>
+                </div>
+            </div>
+
+            <div class="comment-write">
+                <textarea v-model="commentInput" placeholder="回复内容" name="content"></textarea>
+                <div class="comment-write-action">
+                    <button class="comment-write-btn-ok" @click="doCommentAdd">Submit</button>
+                    <button class="comment-write-btn-cancel">Cancel</button>
+                </div>
+            </div>
+
+
+        </section>
+
+
+
         {% include addons.html %}
         {% include base_copyright.html %}
+
+
+
     </div>
 
     </section>
@@ -69,7 +105,7 @@
 
 </div>
 
-<script src="/assets/js/vue.js"></script>
+<script src="/assets/js/vue_d.js"></script>
 <script src="/assets/js/nprogress.js"></script>
 <script src="/assets/js/axios.min.js"></script>
 <script src="/assets/js/app.js"></script>

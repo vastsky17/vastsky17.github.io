@@ -19,7 +19,7 @@ axios.interceptors.response.use(function (response) {
     // Do something with response error
     return Promise.reject(error);
 });
-
+var commentHost = "http://home.mojotv.cn:2222"
 new Vue({
     el: '#app',
     data: {
@@ -30,9 +30,22 @@ new Vue({
         categories: null,
         articles: null,
         all: null,
+        commentInput: "",
+        commentList: [],
         search: "",
         clickedCate: "",
         showPostList: false,
+    },
+    computed: {
+        http: function () {
+            var token = localStorage.getItem("_k") || "felix";
+            var instance = axios.create({
+                baseURL: 'http://localhost:2222',
+                timeout: 1000,
+                headers: {'Authorization': 'Bearer ' + token}
+            });
+            return instance
+        }
     },
     watch: {
         search: function (val) {
@@ -60,6 +73,7 @@ new Vue({
             meta.style.visibility = 'visible'
             indexDom.style.visibility = 'visible'
         }
+
     },
     created: function () {
         this.showPostList = window.location.pathname === '/';
@@ -84,8 +98,25 @@ new Vue({
         }).catch(function (error) {
             console.log(error);
         });
+        this.fetchComment();
+
     },
     methods: {
+
+        doLogin: function () {
+            this.http.post('api/login', {username: "admin", password: "admin"}).then(function (res) {
+                var token = res.data.data.token;
+                localStorage.setItem("_t", token)
+            })
+        },
+        fetchComment: function () {
+            var url = window.location.href;
+            var data = {page:1,size:99999999999,page_url:url};
+            var vm = this;
+            this.http.get('api/comment',{query:data}).then(function (res) {
+                vm.commentList = res.data.data
+            })
+        },
         doView: function (item) {
             var url = item.url;
             var title = item.title;
@@ -159,6 +190,13 @@ new Vue({
                 ID += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
             }
             return ID;
+        },
+        doCommentAdd: function () {
+            var url = window.location.href;
+            var data = {post_url:url,content:this.commentInput}
+            this.http.post('api/comment',data).then(function (res) {
+                console.log(res)
+            })
         },
         humanTime: function (timeS) {
             var date = new Date(timeS);
