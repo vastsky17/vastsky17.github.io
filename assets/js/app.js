@@ -11,18 +11,52 @@ axios.interceptors.request.use(function (config) {
 
 // Add a response interceptor
 axios.interceptors.response.use(function (response) {
-    // Do something with response data
     NProgress.done();
     return response;
 }, function (error) {
     NProgress.done();
-    // Do something with response error
     return Promise.reject(error);
 });
-var commentHost = "http://home.mojotv.cn:2222"
-new Vue({
+
+var apiHttp = axios.create({
+    baseURL: commentHost,
+    timeout: 1000,
+    headers: {'Authorization': 'Bearer ' + localStorage.getItem("_k")}
+});
+apiHttp.interceptors.response.use(function (response) {
+    // Do something with response data
+    NProgress.done();
+    if (response.status === 200 && response.data && !response.data.ok) {
+        //显示登陆页面
+        var msg = response.data.msg;
+        app.$message.error("error: " + msg)
+    }
+
+    return response;
+}, function (error) {
+    NProgress.done();
+    var code = error.response.status;
+    if (code === 412){
+        app.$message.error("请登陆")
+        app.dialogVisible = true;
+    }else {
+        app.$message.error("http status: " + code)
+    }
+    // Do something with response error
+    return null;
+});
+
+var app = new Vue({
     el: '#app',
     data: {
+        dialogVisible: false,
+        isRegister: false,
+        form: {
+            username: '',
+            email: "",
+            password: "",
+            repassword: "",
+        },
         isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
         articleTitle: '',
         articleUrl: '',
@@ -42,18 +76,14 @@ new Vue({
             var uid = localStorage.getItem("uid") || "1";
             return parseInt(uid)
         },
+        username: function () {
+            var user = localStorage.getItem("username") || "FelixZhou";
+            return user;
+        },
         thisUrl: function () {
             return window.location.hostname + window.location.pathname;
         },
-        http: function () {
-            var token = localStorage.getItem("_k") || "felix";
-            var instance = axios.create({
-                baseURL: 'http://localhost:2222',
-                timeout: 1000,
-                headers: {'Authorization': 'Bearer ' + token}
-            });
-            return instance
-        }
+
     },
     watch: {
         commentInput: function (val) {
@@ -114,14 +144,56 @@ new Vue({
 
     },
     methods: {
+        doRegister: function () {
+            if (this.isRegister) {
+                if (!this.form.username || !this.form.email || !this.form.password) {
+                    alert("用户名,密码,邮箱不能为空")
+                    return
+                }
+
+                if (this.form.password !== this.form.repassword) {
+                    alert("确认密码错误")
+                    return
+                }//register
+                var vm = this;
+                apiHttp.post('api/register', this.form).then(function (res) {
+                    if (res.code == 200 && res.data.ok) {
+                        vm.isRegister = false;
+                        vm.$notify.success("注册成功,请登陆账号")
+                    }
+                })
+            } else {
+                this.isRegister = true;
+            }
+        },
+        doLogin: function () {
+            var vm = this
+            if (!this.isRegister) {
+                if (!this.form.username || !this.form.password) {
+                    alert("账号,邮箱不能为空")
+                    return
+                }//login
+                apiHttp.post('api/login', this.form).then(function (res) {
+                    var token = res.data.data.token;
+                    localStorage.setItem("_k", token)
+                    localStorage.setItem("uid", res.data.data.ID)
+                    localStorage.setItem("username", res.data.data.username)
+                    vm.dialogVisible = false;
+                    vm.$notify.success("登陆成功")
+                })
+            } else {
+                this.isRegister = false;
+            }
+
+        },
         arrayCount: function (arrayUid) {
-            if (!Array.isArray(arrayUid)){
+            if (!Array.isArray(arrayUid)) {
                 return 0
             }
             return arrayUid.length;
         },
         isUidInArray: function (arrayUid) {
-            if (!Array.isArray(arrayUid)){
+            if (!Array.isArray(arrayUid)) {
                 return false
             }
             var uid = this.uid;
@@ -132,17 +204,11 @@ new Vue({
             }
             return false;
         },
-        doLogin: function () {
-            this.http.post('api/login', {username: "admin", password: "admin"}).then(function (res) {
-                var token = res.data.data.token;
-                localStorage.setItem("_t", token)
-            })
-        },
         fetchComment: function () {
             var url = this.thisUrl;
             var data = {page: 1, size: 99999999999, page_url: url};
             var vm = this;
-            this.http.get('api/comment', {params: data}).then(function (res) {
+            apiHttp.get('api/comment', {params: data}).then(function (res) {
                 vm.commentList = res.data.data
             })
         },
@@ -217,7 +283,7 @@ new Vue({
             var url = this.thisUrl;
             var data = {page_url: url, content: this.commentInput, parent_path: this.reply_parent_path}
             var vm = this;
-            this.http.post('api/comment', data).then(function (res) {
+            apiHttp.post('api/comment', data).then(function (res) {
                 vm.commentInput = '';
                 vm.reply_parent_path = '';
                 vm.fetchComment();
@@ -226,7 +292,7 @@ new Vue({
         doCommentAction: function (obj, action) {
             var url = "api/comment/" + obj.ID + "/" + action;
             var vm = this;
-            this.http.get(url).then(function (res) {
+            apiHttp.get(url).then(function (res) {
                 vm.fetchComment();
             })
         },
