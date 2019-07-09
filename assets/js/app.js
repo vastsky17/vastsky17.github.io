@@ -213,7 +213,7 @@ var app = new Vue({
         },
         fetchComment: function () {
             var url = this.thisUrl;
-            var data = {page: 1, size: 99999999999, page_url: url};
+            var data = {page: 1, size: 99999, page_url: url};
             var vm = this;
             apiHttp.get('api/comment', {params: data}).then(function (res) {
                 if (res){
