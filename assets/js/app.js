@@ -35,8 +35,16 @@ new Vue({
         search: "",
         clickedCate: "",
         showPostList: false,
+        reply_parent_path: '',
     },
     computed: {
+        uid: function () {
+            var uid = localStorage.getItem("uid") || "1";
+            return parseInt(uid)
+        },
+        thisUrl: function () {
+            return window.location.hostname + window.location.pathname;
+        },
         http: function () {
             var token = localStorage.getItem("_k") || "felix";
             var instance = axios.create({
@@ -48,6 +56,11 @@ new Vue({
         }
     },
     watch: {
+        commentInput: function (val) {
+            if (!val) {
+                this.reply_parent_path = '';
+            }
+        },
         search: function (val) {
             if (val === '') {
                 this.articles = this.all
@@ -89,7 +102,6 @@ new Vue({
         };
     },
     mounted: function () {
-        this.doCommentSection();
         var vm = this
         axios.get('/api/article-list.json').then(function (response) {
             vm.categories = response.data.categories;
@@ -102,7 +114,24 @@ new Vue({
 
     },
     methods: {
-
+        arrayCount: function (arrayUid) {
+            if (!Array.isArray(arrayUid)){
+                return 0
+            }
+            return arrayUid.length;
+        },
+        isUidInArray: function (arrayUid) {
+            if (!Array.isArray(arrayUid)){
+                return false
+            }
+            var uid = this.uid;
+            for (var i = 0; i < arrayUid.length; i++) {
+                if (parseInt(arrayUid[i]) === uid) {
+                    return true
+                }
+            }
+            return false;
+        },
         doLogin: function () {
             this.http.post('api/login', {username: "admin", password: "admin"}).then(function (res) {
                 var token = res.data.data.token;
@@ -110,10 +139,10 @@ new Vue({
             })
         },
         fetchComment: function () {
-            var url = window.location.href;
-            var data = {page:1,size:99999999999,page_url:url};
+            var url = this.thisUrl;
+            var data = {page: 1, size: 99999999999, page_url: url};
             var vm = this;
-            this.http.get('api/comment',{query:data}).then(function (res) {
+            this.http.get('api/comment', {params: data}).then(function (res) {
                 vm.commentList = res.data.data
             })
         },
@@ -125,7 +154,6 @@ new Vue({
                 title: title
             }, title, url);
             document.title = title;
-            this.doCommentSection()
             var vm = this;
             axios.get(url).then(function (res) {
                 var parts = res.data.trim().split("<!--===thisExplodePointPjax===-->")
@@ -159,19 +187,6 @@ new Vue({
             }
             indexDom.innerHTML = tocHtml
         },
-        doCommentSection: function () {
-            var idcomments_acct = '43b5f1195c4058c8e3297caca2d70c2a';
-            var idcomments_post_title = document.title.replace(/#/, "%23");
-            var idcomments_post_url = window.location.href;
-            var idcomments_post_id = window.location.href;
-            idcomments_post_id = encodeURIComponent(idcomments_post_id);
-            idcomments_post_url = encodeURIComponent(idcomments_post_url);
-            idcomments_post_title = encodeURIComponent(idcomments_post_title);
-            var commentScript = document.createElement("script");
-            commentScript.type = "text/javascript";
-            commentScript.src = "https://intensedebate.com/js/genericCommentWrapper2.php?acct=" + idcomments_acct + "&postid=" + idcomments_post_id + "&title=" + idcomments_post_title + "&url=" + idcomments_post_url;
-            document.getElementsByTagName("head")[0].appendChild(commentScript);
-        },
         doChangeCate: function (val) {
             this.showPostList = true;
             this.search = '';
@@ -191,11 +206,28 @@ new Vue({
             }
             return ID;
         },
+        doCommentReply: function (obj) {
+            var atUser = obj.user.username;
+            this.commentInput = "@" + atUser + " ";
+            this.reply_parent_path = obj.parent_path + '/' + obj.ID;
+            this.$refs.commenter.scrollIntoView();
+
+        },
         doCommentAdd: function () {
-            var url = window.location.href;
-            var data = {post_url:url,content:this.commentInput}
-            this.http.post('api/comment',data).then(function (res) {
-                console.log(res)
+            var url = this.thisUrl;
+            var data = {page_url: url, content: this.commentInput, parent_path: this.reply_parent_path}
+            var vm = this;
+            this.http.post('api/comment', data).then(function (res) {
+                vm.commentInput = '';
+                vm.reply_parent_path = '';
+                vm.fetchComment();
+            })
+        },
+        doCommentAction: function (obj, action) {
+            var url = "api/comment/" + obj.ID + "/" + action;
+            var vm = this;
+            this.http.get(url).then(function (res) {
+                vm.fetchComment();
             })
         },
         humanTime: function (timeS) {

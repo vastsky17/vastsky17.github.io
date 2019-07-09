@@ -29,66 +29,32 @@
 
     <div class="main">
         <!--文章列表-->
-        <transition name="fade">
-            <div class="posts-list" v-show="showPostList" @mouseover="doSetPostList(true)"
-                 v-if="!isMobile"
-                 @mouseleave="doSetPostList(false)">
-                <form action="" id="search-form">
-                    <input id="search-input" type="text" placeholder="Search..." v-model.trim="search" autocomplete="off">
-                </form>
-                <section class="article-list">
-                    <a :href="item.url" v-for="item in articles" :key="item.url" class="post-li-a"
-                       @click.stop.prevent="doView(item)">
-                        <span class="post-li-dot"></span>
-                        <span class="post-li-title" v-text="item.title"></span>
-                        <span class="post-li-time" v-text="humanTime(item.time)"></span>
-                    </a>
-                </section>
-            </div> <!-- end #posts-list -->
-        </transition>
+        <div class="posts-list" v-show="showPostList" @mouseover="doSetPostList(true)"
+             v-if="!isMobile"
+             @mouseleave="doSetPostList(false)">
+            <form action="" id="search-form">
+                <input id="search-input" type="text" placeholder="Search..." v-model.trim="search" autocomplete="off">
+            </form>
+            <section class="article-list">
+                <a :href="item.url" v-for="item in articles" :key="item.url" class="post-li-a"
+                   @click.stop.prevent="doView(item)">
+                    <span class="post-li-dot"></span>
+                    <span class="post-li-title" v-text="item.title"></span>
+                    <span class="post-li-time" v-text="humanTime(item.time)"></span>
+                </a>
+            </section>
+        </div> <!-- end #posts-list -->
 
-        <article  v-if="pjaxHtml === ''" class="article-body">
+        <article v-if="pjaxHtml === ''" class="article-body">
             <!--===thisExplodePointPjax===-->
             {{ content }}
             <!--===thisExplodePointPjax===-->
         </article>
         <article v-if="pjaxHtml !== ''" v-html="pjaxHtml" class="article-body"></article>
 
-        <!--评论框-->
-        <section class="comment">
-
-
-
-            <div class="comment-thread" v-for="(obj,idx) in commentList">
-                <img src="/assets/image/libra_icon.jpg" class="comment-thread-avatar">
-                <div>
-                    <p class="comment-thread-text" v-text="obj.content"> </p>
-                    <section class="comment-thread-addons">
-                        <span> <i class="fa fa-clock-o comment-thread-time"></i>{{humanTime(obj.CreatedAt)}}</span>
-                        <a class="" title="like"><i class="fa fa-thumbs-up"></i> </a>
-                        <a class="" title="dislike"><i class="fa fa-thumbs-down"></i></a>
-                        <a class="" title="thank"><i class="fa fa-trophy"></i></a>
-                        <a class="" title="replay"><i class="fa fa-reply"></i></a>
-                    </section>
-                </div>
-            </div>
-
-            <div class="comment-write">
-                <textarea v-model="commentInput" placeholder="回复内容" name="content"></textarea>
-                <div class="comment-write-action">
-                    <button class="comment-write-btn-ok" @click="doCommentAdd">Submit</button>
-                    <button class="comment-write-btn-cancel">Cancel</button>
-                </div>
-            </div>
-
-
-        </section>
-
-
 
         {% include addons.html %}
         {% include base_copyright.html %}
-
 
 
     </div>

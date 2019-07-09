@@ -1,6 +1,6 @@
 <div class="addon">
 
-    <h2 id="tag_h2">分类标签</h2>
+    <h2 >分类标签</h2>
     <div class="tags-items-list">
         {% for tag in site.tags %}
         <a href="/404#{{ tag[0] }}" class="post-tag">{{ tag[0] }}</a>
@@ -18,5 +18,44 @@
            href="http://v.t.sina.com.cn/share/share.php?url={{ site.url | append: page.url | url_encode }}&title={{'『' | append: page.title | append: '』' | append: page.description | url_encode}}"
            target="_blank"></a>
     </div> <!-- end #post__share -->
-    <span id="IDCommentsPostTitle" style="display:none"></span>
+
+
+
+    <!--评论框-->
+    <h2 >评论</h2>
+    <section class="comment">
+        <div class="comment-thread" v-for="(obj,idx) in commentList">
+            <img src="/assets/image/libra_icon.jpg" class="comment-thread-avatar">
+            <div>
+                <p class="comment-thread-text" v-text="obj.content"></p>
+                <section class="comment-thread-addons">
+                    <span> <i class="fa fa-clock-o comment-thread-time"></i><i v-text="humanTime(obj.CreatedAt)"></i></span>
+                    <a :class="isUidInArray(obj.like_uids) ? 'active':''" title="like"
+                       @click="doCommentAction(obj,'like')"><span v-text="arrayCount(obj.like_uids)"
+                                                                  class="icon-text"></span><i
+                            class="fa fa-thumbs-up"></i> </a>
+                    <a :class="isUidInArray(obj.dislike_uids) ? 'active':''" title="dislike"
+                       @click="doCommentAction(obj,'dislike')"><span v-text="arrayCount(obj.dislike_uids)"
+                                                                     class="icon-text"></span><i
+                            class="fa fa-thumbs-down"></i></a>
+                    <a :class="isUidInArray(obj.thank_uids) ? 'active':''" title="thank"
+                       @click="doCommentAction(obj,'thank')"><span v-text="arrayCount(obj.thank_uids)"
+                                                                   class="icon-text"></span><i
+                            class="fa fa-trophy"></i></a>
+                    <a class="" title="replay" @click="doCommentReply(obj)"><i class="fa fa-reply"></i></a>
+                </section>
+            </div>
+        </div>
+
+        <div class="comment-write" ref="commenter">
+            <textarea v-model="commentInput" placeholder="回复内容" name="content"></textarea>
+            <div class="comment-write-action">
+                <button class="comment-write-btn-ok" @click="doCommentAdd()">Submit</button>
+                <button class="comment-write-btn-cancel">Cancel</button>
+            </div>
+        </div>
+
+
+    </section>
+
 </div>
