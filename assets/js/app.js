@@ -20,7 +20,7 @@ axios.interceptors.response.use(function (response) {
 
 var apiHttp = axios.create({
     baseURL: commentHost,
-    timeout: 1000,
+    timeout: 10000,
 });
 apiHttp.interceptors.response.use(function (response) {
     // Do something with response data
