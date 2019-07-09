@@ -307,7 +307,9 @@ var app = new Vue({
             var url = "api/comment/" + obj.ID + "/" + action;
             var vm = this;
             this.apiC.get(url).then(function (res) {
-                vm.fetchComment();
+                if (res){
+                    vm.fetchComment();
+                }
             })
         },
         humanTime: function (timeS) {
