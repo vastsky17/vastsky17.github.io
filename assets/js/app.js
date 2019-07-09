@@ -29,20 +29,22 @@ apiHttp.interceptors.response.use(function (response) {
     if (response.status === 200 && response.data && !response.data.ok) {
         //显示登陆页面
         var msg = response.data.msg;
-        app.$message.error("error: " + msg)
+        app.$notify.error("error: " + msg)
+        return null
     }
 
-    return response;
+    return response.data;
 }, function (error) {
     NProgress.done();
-    var code = error.response.status;
-    if (code === 412){
-        app.$message.error("请登陆")
+    if (error.response && error.response.status === 412){
+        app.$notify.error("请登陆")
         app.dialogVisible = true;
-    }else {
-        app.$message.error("http status: " + code)
+        return
     }
-    // Do something with response error
+    if (error.message){
+        app.$notify.error(error.message)
+        return
+    }
     return null;
 });
 
@@ -70,8 +72,13 @@ var app = new Vue({
         clickedCate: "",
         showPostList: false,
         reply_parent_path: '',
+        commentCount:0,
     },
     computed: {
+        isPostPage: function () {
+            var flag = (window.location.pathname !== '/' && window.location.pathname !== '/404');
+            return flag;
+        },
         uid: function () {
             var uid = localStorage.getItem("uid") || "1";
             return parseInt(uid)
@@ -174,10 +181,10 @@ var app = new Vue({
                     return
                 }//login
                 apiHttp.post('api/login', this.form).then(function (res) {
-                    var token = res.data.data.token;
+                    var token = res.data.token;
                     localStorage.setItem("_k", token)
-                    localStorage.setItem("uid", res.data.data.ID)
-                    localStorage.setItem("username", res.data.data.username)
+                    localStorage.setItem("uid", res.data.ID)
+                    localStorage.setItem("username", res.data.username)
                     vm.dialogVisible = false;
                     vm.$notify.success("登陆成功")
                 })
@@ -209,7 +216,10 @@ var app = new Vue({
             var data = {page: 1, size: 99999999999, page_url: url};
             var vm = this;
             apiHttp.get('api/comment', {params: data}).then(function (res) {
-                vm.commentList = res.data.data
+                if (res){
+                    vm.commentList = res.data;
+                    vm.commentCount = res.total;
+                }
             })
         },
         doView: function (item) {
@@ -224,6 +234,7 @@ var app = new Vue({
             axios.get(url).then(function (res) {
                 var parts = res.data.trim().split("<!--===thisExplodePointPjax===-->")
                 vm.pjaxHtml = parts[1];
+                vm.fetchComment();
             }).catch(function (error) {
                 vm.pjaxHtml = '';
                 console.log(error);

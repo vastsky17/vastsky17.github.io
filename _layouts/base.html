@@ -92,7 +92,7 @@
 
     </section>
     <!--markdwon 导航栏-->
-    <div id="article-index">
+    <div id="article-index" v-show="isPostPage">
         <div id="post__toc">
             <span id="article-index-title">目录</span>
             <ul id="article-index-ul"></ul>
@@ -101,8 +101,7 @@
     <!-- end #post -->
 
 </div>
-
-<script src="/assets/js/vue_d.js"></script>
+<script src="/assets/js/vue.js"></script>
 <script src="/assets/js/element.js"></script>
 <script src="/assets/js/nprogress.js"></script>
 <script src="/assets/js/axios.min.js"></script>

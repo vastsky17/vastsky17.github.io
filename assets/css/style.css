@@ -1345,7 +1345,11 @@ td > code {
     text-decoration: none;
     background-color: #03a9f4;
 }
-
+.comment-count{
+    color: #9E9E9E;
+    font-size: 16px;
+    margin-left: 1rem;
+}
 .comment-thread {
     align-items: center;
     display: flex;

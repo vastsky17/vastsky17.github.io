@@ -30,6 +30,11 @@
 <script>
     window.dataLayer = window.dataLayer || [];
     var commentHost = "{{site.comment_api}}"
+
+
+    if ( window.location.hostname.indexOf("127.0.") >= 0){
+        commentHost = "http://127.0.0.1:2222"
+    }
     function gtag() {
         dataLayer.push(arguments);
     }
