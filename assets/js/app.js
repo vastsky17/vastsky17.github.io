@@ -21,7 +21,6 @@ axios.interceptors.response.use(function (response) {
 var apiHttp = axios.create({
     baseURL: commentHost,
     timeout: 1000,
-    headers: {'Authorization': 'Bearer ' + localStorage.getItem("_k")}
 });
 apiHttp.interceptors.response.use(function (response) {
     // Do something with response data
@@ -75,6 +74,10 @@ var app = new Vue({
         commentCount:0,
     },
     computed: {
+        apiC: function(){
+            apiHttp.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem("_k");
+            return apiHttp;
+        },
         isPostPage: function () {
             var flag = (window.location.pathname !== '/' && window.location.pathname !== '/404');
             return flag;
@@ -163,7 +166,7 @@ var app = new Vue({
                     return
                 }//register
                 var vm = this;
-                apiHttp.post('api/register', this.form).then(function (res) {
+                this.apiC.post('api/register', this.form).then(function (res) {
                     if (res.code == 200 && res.data.ok) {
                         vm.isRegister = false;
                         vm.$notify.success("注册成功,请登陆账号")
@@ -180,7 +183,7 @@ var app = new Vue({
                     alert("账号,邮箱不能为空")
                     return
                 }//login
-                apiHttp.post('api/login', this.form).then(function (res) {
+                this.apiC.post('api/login', this.form).then(function (res) {
                     var token = res.data.token;
                     localStorage.setItem("_k", token)
                     localStorage.setItem("uid", res.data.ID)
@@ -215,7 +218,7 @@ var app = new Vue({
             var url = this.thisUrl;
             var data = {page: 1, size: 99999, page_url: url};
             var vm = this;
-            apiHttp.get('api/comment', {params: data}).then(function (res) {
+            this.apiC.get('api/comment', {params: data}).then(function (res) {
                 if (res){
                     vm.commentList = res.data;
                     vm.commentCount = res.total;
@@ -294,7 +297,7 @@ var app = new Vue({
             var url = this.thisUrl;
             var data = {page_url: url, content: this.commentInput, parent_path: this.reply_parent_path}
             var vm = this;
-            apiHttp.post('api/comment', data).then(function (res) {
+            this.apiC.post('api/comment', data).then(function (res) {
                 vm.commentInput = '';
                 vm.reply_parent_path = '';
                 vm.fetchComment();
@@ -303,7 +306,7 @@ var app = new Vue({
         doCommentAction: function (obj, action) {
             var url = "api/comment/" + obj.ID + "/" + action;
             var vm = this;
-            apiHttp.get(url).then(function (res) {
+            this.apiC.get(url).then(function (res) {
                 vm.fetchComment();
             })
         },
