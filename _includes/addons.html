@@ -31,15 +31,15 @@
                 <section class="comment-thread-addons">
                     <span> <i class="fa fa-clock-o comment-thread-time"></i><i v-text="humanTime(obj.CreatedAt)"></i></span>
                     <a :class="isUidInArray(obj.like_uids) ? 'active':''" title="like"
-                       @click="doCommentAction(obj,'like')"><span v-text="arrayCount(obj.like_uids)"
+                       @click="doCommentAction(obj,'like')"><span v-text="arrayCount(obj.like_uids)" v-show="arrayCount(obj.like_uids)>0"
                                                                   class="icon-text"></span><i
                             class="fa fa-thumbs-up"></i> </a>
                     <a :class="isUidInArray(obj.dislike_uids) ? 'active':''" title="dislike"
-                       @click="doCommentAction(obj,'dislike')"><span v-text="arrayCount(obj.dislike_uids)"
+                       @click="doCommentAction(obj,'dislike')"><span v-text="arrayCount(obj.dislike_uids)" v-show="arrayCount(obj.dislike_uids)>0"
                                                                      class="icon-text"></span><i
                             class="fa fa-thumbs-down"></i></a>
                     <a :class="isUidInArray(obj.thank_uids) ? 'active':''" title="thank"
-                       @click="doCommentAction(obj,'thank')"><span v-text="arrayCount(obj.thank_uids)"
+                       @click="doCommentAction(obj,'thank')"><span v-text="arrayCount(obj.thank_uids)" v-show="arrayCount(obj.thank_uids)>0"
                                                                    class="icon-text"></span><i
                             class="fa fa-trophy"></i></a>
                     <a class="" title="replay" @click="doCommentReply(obj)"><i class="fa fa-reply"></i></a>
