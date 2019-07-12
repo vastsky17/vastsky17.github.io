@@ -35,13 +35,13 @@ apiHttp.interceptors.response.use(function (response) {
     return response.data;
 }, function (error) {
     NProgress.done();
-    if (error.response && error.response.status === 412){
+    if (error.response && error.response.status === 412) {
         app.$notify.error("请登陆")
         var p = window.location.pathname
-        window.location.href = "/login?re="+p;
+        window.location.href = "/login?re=" + p;
         return
     }
-    if (error.message){
+    if (error.message) {
         app.$notify.error(error.message)
         return
     }
@@ -67,10 +67,10 @@ var app = new Vue({
         clickedCate: "",
         showPostList: false,
         reply_parent_path: '',
-        commentCount:0,
+        commentCount: 0,
     },
     computed: {
-        apiC: function(){
+        apiC: function () {
             apiHttp.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem("_k");
             return apiHttp;
         },
@@ -146,7 +146,7 @@ var app = new Vue({
         }).catch(function (error) {
             console.log(error);
         });
-        this.fetchComment();
+        this.fetchComment(null);
 
     },
     methods: {
@@ -169,12 +169,14 @@ var app = new Vue({
             }
             return false;
         },
-        fetchComment: function () {
-            var url = this.thisUrl;
+        fetchComment: function (url) {
+            if (!url) {
+                url = this.thisUrl;
+            }
             var data = {page: 1, size: 99999, page_url: url};
             var vm = this;
             this.apiC.get('api/comment', {params: data}).then(function (res) {
-                if (res){
+                if (res) {
                     vm.commentList = res.data;
                     vm.commentCount = res.total;
                 }
@@ -192,7 +194,7 @@ var app = new Vue({
             axios.get(url).then(function (res) {
                 var parts = res.data.trim().split("<!--===thisExplodePointPjax===-->")
                 vm.pjaxHtml = parts[1];
-                vm.fetchComment();
+                vm.fetchComment(window.location.hostname + url);
             }).catch(function (error) {
                 vm.pjaxHtml = '';
                 console.log(error);
@@ -253,22 +255,21 @@ var app = new Vue({
             var data = {page_url: url, content: this.commentInput, parent_path: this.reply_parent_path}
             var vm = this;
             this.apiC.post('api/comment', data).then(function (res) {
-                if (res.ok){
+                if (res.ok) {
                     vm.commentInput = '';
                     vm.reply_parent_path = '';
                     vm.$notify.success('添加评论成功');
-                    vm.fetchComment();
+                    vm.fetchComment(null);
                 }
-
             })
         },
         doCommentAction: function (obj, action) {
             var url = "api/comment/" + obj.ID + "/" + action;
             var vm = this;
             this.apiC.get(url).then(function (res) {
-                if (res){
+                if (res.ok) {
                     vm.$notify.success(action + "操作成功");
-                    vm.fetchComment();
+                    vm.fetchComment(null);
                 }
             })
         },
