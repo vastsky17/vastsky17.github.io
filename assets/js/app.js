@@ -255,7 +255,7 @@ var app = new Vue({
             var data = {page_url: url, content: this.commentInput, parent_path: this.reply_parent_path}
             var vm = this;
             this.apiC.post('api/comment', data).then(function (res) {
-                if (res.ok) {
+                if (res) {
                     vm.commentInput = '';
                     vm.reply_parent_path = '';
                     vm.$notify.success('添加评论成功');
@@ -267,7 +267,7 @@ var app = new Vue({
             var url = "api/comment/" + obj.ID + "/" + action;
             var vm = this;
             this.apiC.get(url).then(function (res) {
-                if (res.ok) {
+                if (res) {
                     vm.$notify.success(action + "操作成功");
                     vm.fetchComment(null);
                 }
