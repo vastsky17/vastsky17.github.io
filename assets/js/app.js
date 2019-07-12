@@ -37,7 +37,8 @@ apiHttp.interceptors.response.use(function (response) {
     NProgress.done();
     if (error.response && error.response.status === 412){
         app.$notify.error("请登陆")
-        app.dialogVisible = true;
+        var p = window.location.pathname
+        window.location.href = "/login?re="+p;
         return
     }
     if (error.message){
@@ -50,14 +51,7 @@ apiHttp.interceptors.response.use(function (response) {
 var app = new Vue({
     el: '#app',
     data: {
-        dialogVisible: false,
-        isRegister: false,
-        form: {
-            username: '',
-            email: "",
-            password: "",
-            repassword: "",
-        },
+
         isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
         articleTitle: '',
         articleUrl: '',
@@ -154,48 +148,7 @@ var app = new Vue({
 
     },
     methods: {
-        doRegister: function () {
-            if (this.isRegister) {
-                if (!this.form.username || !this.form.email || !this.form.password) {
-                    alert("用户名,密码,邮箱不能为空")
-                    return
-                }
 
-                if (this.form.password !== this.form.repassword) {
-                    alert("确认密码错误")
-                    return
-                }//register
-                var vm = this;
-                this.apiC.post('api/register', this.form).then(function (res) {
-                    if (res.code == 200 && res.data.ok) {
-                        vm.isRegister = false;
-                        vm.$notify.success("注册成功,请登陆账号")
-                    }
-                })
-            } else {
-                this.isRegister = true;
-            }
-        },
-        doLogin: function () {
-            var vm = this
-            if (!this.isRegister) {
-                if (!this.form.username || !this.form.password) {
-                    alert("账号,邮箱不能为空")
-                    return
-                }//login
-                this.apiC.post('api/login', this.form).then(function (res) {
-                    var token = res.data.token;
-                    localStorage.setItem("_k", token)
-                    localStorage.setItem("uid", res.data.ID)
-                    localStorage.setItem("username", res.data.username)
-                    vm.dialogVisible = false;
-                    vm.$notify.success("登陆成功")
-                })
-            } else {
-                this.isRegister = false;
-            }
-
-        },
         arrayCount: function (arrayUid) {
             if (!Array.isArray(arrayUid)) {
                 return 0

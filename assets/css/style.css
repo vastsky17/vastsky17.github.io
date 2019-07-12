@@ -491,7 +491,7 @@ h2, h3, h4, h5, h6 {
     color: #FF5722;
 }
 
-h2:before {
+.main > h2:before {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
     font-style: normal;
@@ -512,7 +512,7 @@ h2:before {
     margin-right: 1rem;
 }
 
-h3:before {
+.main > h3:before {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
     font-style: normal;
