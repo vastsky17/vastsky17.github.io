@@ -39,7 +39,7 @@ layout: null
     </el-form>
 </div>
 
-<script src="/assets/js/vue_d.js"></script>
+<script src="/assets/js/vue.js"></script>
 <script src="/assets/js/element.js"></script>
 <script src="/assets/js/nprogress.js"></script>
 <script src="/assets/js/axios.min.js"></script>
@@ -84,7 +84,6 @@ layout: null
         NProgress.done();
         if (error.response && error.response.status === 412) {
             app.$notify.error("请登陆")
-            app.dialogVisible = true;
             return
         }
         if (error.message) {
@@ -152,7 +151,6 @@ layout: null
                         localStorage.setItem("_k", token)
                         localStorage.setItem("uid", res.data.ID)
                         localStorage.setItem("username", res.data.username)
-                        vm.dialogVisible = false;
                         vm.$notify.success("登陆成功")
                         vm.doJumpPage()
                     })
