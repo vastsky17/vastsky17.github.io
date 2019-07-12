@@ -49,9 +49,11 @@ apiHttp.interceptors.response.use(function (response) {
 });
 
 var app = new Vue({
+    components: {
+        'avatar': VueAvatar.Avatar,
+    },
     el: '#app',
     data: {
-
         isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
         articleTitle: '',
         articleUrl: '',
@@ -251,10 +253,13 @@ var app = new Vue({
             var data = {page_url: url, content: this.commentInput, parent_path: this.reply_parent_path}
             var vm = this;
             this.apiC.post('api/comment', data).then(function (res) {
-                vm.commentInput = '';
-                vm.reply_parent_path = '';
-                vm.$notify.success('添加评论成功');
-                vm.fetchComment();
+                if (res.ok){
+                    vm.commentInput = '';
+                    vm.reply_parent_path = '';
+                    vm.$notify.success('添加评论成功');
+                    vm.fetchComment();
+                }
+
             })
         },
         doCommentAction: function (obj, action) {

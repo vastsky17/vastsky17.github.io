@@ -26,7 +26,7 @@
     <section class="comment">
         <div class="comment-thread" v-for="(obj,idx) in commentList">
             <span class="avatar">
-                <img src="/assets/image/libra_icon.jpg" class="comment-thread-avatar">
+                <avatar :username="obj.user.username" class="comment-thread-avatar"></avatar>
                 <i v-text="obj.user.username"></i>
             </span>
             <div>
