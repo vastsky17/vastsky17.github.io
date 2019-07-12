@@ -491,7 +491,7 @@ h2, h3, h4, h5, h6 {
     color: #FF5722;
 }
 
-.main > h2:before {
+.main  h2:before {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
     font-style: normal;
@@ -512,7 +512,7 @@ h2, h3, h4, h5, h6 {
     margin-right: 1rem;
 }
 
-.main > h3:before {
+.main  h3:before {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
     font-style: normal;
@@ -529,7 +529,49 @@ h2, h3, h4, h5, h6 {
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     color: #03a9f4;
-    content: "\f2dd";
+    content: "\f069";
+    margin-right: 1rem;
+}
+
+.main  h4:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: inherit;
+    line-height: 1;
+    font-family: FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    color: #03a9f4;
+    content: "\f0f3";
+    margin-right: 1rem;
+}
+
+.main  h5:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: inherit;
+    line-height: 1;
+    font-family: FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    color: #03a9f4;
+    content: "\f1fd";
     margin-right: 1rem;
 }
 
@@ -540,47 +582,6 @@ h2, h3, h4, h5, h6 {
     justify-items: center;
 }
 
-h4:before {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-style: normal;
-    font-variant-ligatures: normal;
-    font-variant-caps: normal;
-    font-variant-numeric: normal;
-    font-variant-east-asian: normal;
-    font-weight: normal;
-    font-stretch: normal;
-    font-size: inherit;
-    line-height: 1;
-    font-family: FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    color: #03a9f4;
-    content: "\f0e7";
-    margin-right: 1rem;
-}
-
-h5:before {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-style: normal;
-    font-variant-ligatures: normal;
-    font-variant-caps: normal;
-    font-variant-numeric: normal;
-    font-variant-east-asian: normal;
-    font-weight: normal;
-    font-stretch: normal;
-    font-size: inherit;
-    line-height: 1;
-    font-family: FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    color: #03a9f4;
-    content: "\f2a7";
-    margin-right: 1rem;
-}
 
 .article-coverage {
     text-align: center;
