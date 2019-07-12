@@ -22,13 +22,20 @@ var apiHttp = axios.create({
     baseURL: commentHost,
     timeout: 10000,
 });
+
+function noteError(m){
+    app.$notify({type:"danger",title:"error",msg:m,iconClass:"fa fa-bomb"})
+}
+function noteSucess(m){
+    app.$notify({type:"success",title:"OK",msg:m,iconClass:"fa fa-bomb"})
+}
 apiHttp.interceptors.response.use(function (response) {
     // Do something with response data
     NProgress.done();
     if (response.status === 200 && response.data && !response.data.ok) {
         //显示登陆页面
         var msg = response.data.msg;
-        app.$notify.error("error: " + msg)
+        noteError(msg)
         return null
     }
 
@@ -36,13 +43,14 @@ apiHttp.interceptors.response.use(function (response) {
 }, function (error) {
     NProgress.done();
     if (error.response && error.response.status === 412) {
-        app.$notify.error("请登陆")
+        noteError("请登陆")
         var p = window.location.pathname
         window.location.href = "/login?re=" + p;
         return
     }
     if (error.message) {
-        app.$notify.error(error.message)
+        noteError(error.message)
+
         return
     }
     return null;
@@ -258,7 +266,7 @@ var app = new Vue({
                 if (res) {
                     vm.commentInput = '';
                     vm.reply_parent_path = '';
-                    vm.$notify.success('添加评论成功');
+                    noteSucess('添加评论成功')
                     vm.fetchComment(null);
                 }
             })
@@ -268,7 +276,7 @@ var app = new Vue({
             var vm = this;
             this.apiC.get(url).then(function (res) {
                 if (res) {
-                    vm.$notify.success(action + "操作成功");
+                    noteSucess(action + "操作成功")
                     vm.fetchComment(null);
                 }
             })
