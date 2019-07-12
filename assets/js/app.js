@@ -253,6 +253,7 @@ var app = new Vue({
             this.apiC.post('api/comment', data).then(function (res) {
                 vm.commentInput = '';
                 vm.reply_parent_path = '';
+                vm.$notify.success('添加评论成功');
                 vm.fetchComment();
             })
         },
@@ -261,6 +262,7 @@ var app = new Vue({
             var vm = this;
             this.apiC.get(url).then(function (res) {
                 if (res){
+                    vm.$notify.success(action + "操作成功");
                     vm.fetchComment();
                 }
             })
@@ -281,7 +283,7 @@ var app = new Vue({
             } else if (delta < 2 * minute) {
                 fuzzy = '一分钟前'
             } else if (delta < hour) {
-                fuzzy = Math.floor(delta / minute) + ' minutes ago.';
+                fuzzy = Math.floor(delta / minute) + '分钟前';
             } else if (Math.floor(delta / hour) == 1) {
                 fuzzy = '一小时前'
             } else if (delta < day) {
