@@ -21,7 +21,7 @@
 
 <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/element.css">
 
 <meta property="wb:webmaster" content="da7999b4ae4dcf62"/>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -30,17 +30,13 @@
 <script>
     window.dataLayer = window.dataLayer || [];
     var commentHost = "{{site.comment_api}}"
-
-
     if ( window.location.hostname.indexOf("127.0.") >= 0){
         commentHost = "http://127.0.0.1:2222"
     }
     function gtag() {
         dataLayer.push(arguments);
     }
-
     gtag('js', new Date());
-
     gtag('config', 'UA-129013660-5');
     var isM = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (isM) {
@@ -48,5 +44,4 @@
     } else {
         document.write('<link href="/assets/css/style.css" rel="stylesheet" type="text/css" media="screen" />');
     }
-
 </script>
