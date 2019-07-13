@@ -37,7 +37,7 @@
              v-if="!isMobile"
              @mouseleave="doSetPostList(false)">
             <form action="" id="search-form">
-                <input id="search-input" type="text" placeholder="Search..." v-model.trim="search" autocomplete="off">
+                <input id="search-input" ref="search" type="text" placeholder="Search..." v-model.trim="search" autocomplete="off">
             </form>
             <section class="article-list">
                 <a :href="item.url" v-for="item in articles" :key="item.url" class="post-li-a"

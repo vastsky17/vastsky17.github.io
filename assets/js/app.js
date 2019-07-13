@@ -209,6 +209,12 @@ var app = new Vue({
             });
         },
         doSetPostList: function (val) {
+            if(val){
+                this.$refs.search.focus()
+            }else {
+                this.$refs.search.blur()
+            }
+            this.$refs.search.focus()
             this.showPostList = val;
         },
         createMarkdownIndex: function () {
@@ -234,6 +240,7 @@ var app = new Vue({
         },
         doChangeCate: function (val) {
             this.showPostList = true;
+            this.$refs.search.focus()
             this.search = '';
             this.clickedCate = val;
             if (val === "") {

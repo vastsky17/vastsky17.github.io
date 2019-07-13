@@ -463,35 +463,11 @@ a {
     padding: 0 0.5rem;
 }
 
-#pjax.fadeIn {
-    -webkit-animation: fadeIn .3s;
-    -moz-animation: fadeIn .3s;
-    -ms-animation: fadeIn .3s;
-    -o-animation: fadeIn .3s;
-    animation: fadeIn .3s;
-}
 
-#pjax.fadeOut {
-    -webkit-animation: fadeOut .2s;
-    -moz-animation: fadeOut .2s;
-    -ms-animation: fadeOut .2s;
-    -o-animation: fadeOut .2s;
-    animation: fadeOut .2s;
+.el-icon-close:before {
+    font: normal normal normal 14px/1 FontAwesome !important;
+    content: "\f00d" !important;
 }
-
-@media screen and (min-width: 1281px) {
-    #pjax {
-        max-width: 100%;
-    }
-}
-
-@media screen and (max-width: 1280px) {
-    #pjax {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-}
-
 article p {
     text-indent: 0;
     margin-left: 0;
