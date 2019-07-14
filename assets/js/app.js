@@ -20,13 +20,14 @@ axios.interceptors.response.use(function (response) {
 
 var apiHttp = axios.create({
     baseURL: commentHost,
-    timeout: 10000,
+    timeout: 5000,
 });
 
 function noteError(m){
     app.$notify({type:"danger",title:"error",msg:m,iconClass:"fa fa-bomb"})
 }
-function noteSucess(m){
+
+function noteSuccess(m) {
     app.$notify({type:"success",title:"OK",msg:m,iconClass:"fa fa-bomb"})
 }
 apiHttp.interceptors.response.use(function (response) {
@@ -273,7 +274,7 @@ var app = new Vue({
                 if (res) {
                     vm.commentInput = '';
                     vm.reply_parent_path = '';
-                    noteSucess('添加评论成功')
+                    noteSuccess('添加评论成功')
                     vm.fetchComment(null);
                 }
             })
@@ -283,10 +284,13 @@ var app = new Vue({
             var vm = this;
             this.apiC.get(url).then(function (res) {
                 if (res) {
-                    noteSucess(action + "操作成功")
+                    noteSuccess(action + "操作成功")
                     vm.fetchComment(null);
                 }
             })
+        },
+        doClear: function () {
+            this.commentInput = "";
         },
         humanTime: function (timeS) {
             var date = new Date(timeS);

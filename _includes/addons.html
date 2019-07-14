@@ -22,7 +22,7 @@
 
 
     <!--评论框-->
-    <h2 >评论 <span class="comment-count" >     评论数量 :<i v-text="commentCount"></i></span></h2>
+    <h2>评论 <span class="comment-count" v-show="commentCount == 0">   评论数量 :<i v-text="commentCount"></i></span></h2>
     <section class="comment">
         <div class="comment-thread" v-for="(obj,idx) in commentList">
             <span class="avatar">
@@ -53,8 +53,8 @@
         <div class="comment-write" ref="commenter">
             <textarea v-model="commentInput" placeholder="回复内容" name="content"></textarea>
             <div class="comment-write-action">
-                <button class="comment-write-btn-ok" @click="doCommentAdd()">Submit</button>
-                <button class="comment-write-btn-cancel">Cancel</button>
+                <button @click="doCommentAdd()" class="comment-write-btn-ok">评论</button>
+                <button @click="doClear" class="comment-write-btn-cancel">取消</button>
             </div>
         </div>
 

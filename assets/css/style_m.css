@@ -445,12 +445,19 @@ a {
     text-shadow: none;
 }
 
+.comment-count {
+    color: #03a9f4;
+    font-size: 16px;
+}
 @media screen and (max-width: 585px) {
     #post {
         font-size: 14px;
     }
 }
 
+.comment-write > textarea {
+    width: 100%;
+}
 .article-list {
     overflow-y: auto;
 }
@@ -755,8 +762,8 @@ kbd {
     display: flex;
     justify-content: center;
     height: 21px;
-    margin-top: 2.5em;
-    margin-bottom: 19px;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
     border-bottom: 2px solid rgba(229, 232, 236, 0.5);
     position: relative;
 }
@@ -1211,7 +1218,7 @@ pre > code {
     justify-content: space-between;
 }
 .post-meta > span {
-    margin-left: 1rem;
+    margin-left: 4px;
     display: inline-flex;
     align-items: center;
 }
