@@ -2,8 +2,8 @@
 
 #echo "开始发布新的主题";
 
-SOURCE='/mnt/c/Users/zhouqing1/Documents/GitHub/libragen.cn';
-DEST='/mnt/c/Users/zhouqing1/go/src/github.com/dejavuzhou/dejavuzhou.github.io'
+SOURCE='/d/code/libragen.cn';
+DEST='/d/code/dejavuzhou.github.io'
 
 rm -rf $DEST/_includes;
 rm -rf $DEST/_layouts;
