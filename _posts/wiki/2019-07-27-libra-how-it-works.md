@@ -538,8 +538,6 @@ CALIBRA钱包FAQ承诺低收费，但这似乎与在高负载时底层协议的�
 点击“ [Libra Blockchain](https://developers.libra.org/docs/assets/papers/the-libra-blockchain.pdf)”可查看原文
 
 
-_扫码关注京东云开发者社区，每天都有精彩行业信息哦！_
-
 
 
 
