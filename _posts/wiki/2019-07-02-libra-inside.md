@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Libra:01解析
-category: wiki
+category: Wiki
 tags: libra facebook
 description: Facebook 推出 Libra 目的何在？将带来哪些影响？就让我们一起品尝 Facebook 给我们带来的大瓜吧
 keywords: libra facebook
