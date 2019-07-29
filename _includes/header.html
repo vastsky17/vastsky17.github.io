@@ -26,7 +26,7 @@
 <meta property="wb:webmaster" content="da7999b4ae4dcf62"/>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129013660-5"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id={{site.ga_id}}"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
     var commentHost = "{{site.comment_api}}"
@@ -37,7 +37,7 @@
         dataLayer.push(arguments);
     }
     gtag('js', new Date());
-    gtag('config', 'UA-129013660-5');
+    gtag('config', '{{site.ga_id}}');
     var isM = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (isM) {
         document.write('<link href="/assets/css/style_m.css" rel="stylesheet" type="text/css" media="screen" />');
