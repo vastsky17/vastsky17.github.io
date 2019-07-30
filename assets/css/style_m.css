@@ -651,6 +651,7 @@ kbd {
 }
 
 #article-index {
+    display:none!important;
     visibility: hidden;
     width: 0;
     padding-left: 40px;
@@ -671,35 +672,8 @@ kbd {
     transition: transform .35s ease-in-out .1s;
 }
 
-#article-index:hover {
-    -webkit-transform: translateX(0);
-    -moz-transform: translateX(0);
-    -ms-transform: translateX(0);
-    -o-transform: translateX(0);
-    transform: translateX(0);
-}
-
-@media screen and (max-device-width: 1280px) {
-    #article-index {
-        display: none;
-    }
-}
-
 #post__toc {
-    width: 260px;
-    height: 100%;
-    padding-top: 30px;
-    background: rgba(250, 250, 250, 0.9);
-    border-top: 1px solid #e5e8ec;
-    border-left: 1px solid #e5e8ec;
-    border-radius: 10px 0 0 0;
-    display: block;
-    overflow-y: scroll;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+    display:none;
 }
 
 #article-index-title {

@@ -85,6 +85,9 @@ var app = new Vue({
             return apiHttp;
         },
         isPostPage: function () {
+            if (this.isMobile){
+                return false;
+            }
             var flag = (window.location.pathname !== '/' && window.location.pathname !== '/404');
             return flag;
         },
