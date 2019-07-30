@@ -126,6 +126,9 @@ var app = new Vue({
 
         var meta = (document.getElementsByClassName('article-meta'))[0];
         var indexDom = document.getElementById('article-index-ul')
+        if (!indexDom) {
+            return
+        }
         var path = window.location.pathname;
         if (path === '/404' || path === '/') {
             meta.style.visibility = 'hidden'
@@ -227,6 +230,9 @@ var app = new Vue({
             this.showPostList = val;
         },
         createMarkdownIndex: function () {
+            if (this.isMobile) {
+                return;
+            }
             var pathName = window.location.pathname;
             //设置右侧文章内容idx
             if (pathName === '/404' || pathName === '/') {

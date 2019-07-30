@@ -9,8 +9,6 @@
 <div id="app" class="flex-row">
 
 
-
-
     <!--侧边导航栏-->
     <nav class="nav-side" >
         <a href="/" id="avatar" style="background-image:url({{ site.avatar }})" class="spinner-icon"></a>
@@ -25,8 +23,8 @@
         <div class="misc-icon">
             <a href="mailto:{{ site.author.email }}" class="fa fa-id-card-o"></a>
             <a href="https://github.com/dejavuzhou" class="fa fa-github"></a>
-            <a href="https://tech.mojotv.cn" class="fa fa-newspaper-o"></a>
-            <a href="https://libragen.cn" class="fa fa-money"></a>
+            <a href="http://tech.mojotv.cn" class="fa fa-newspaper-o"></a>
+            <a href="http://libragen.cn" class="fa fa-money"></a>
         </div>
     </nav> <!-- end #tags -->
 
@@ -65,7 +63,7 @@
 
     </section>
     <!--markdwon 导航栏-->
-    <div id="article-index" v-show="isPostPage">
+    <div id="article-index" v-if="isPostPage">
         <div id="post__toc">
             <span id="article-index-title">目录</span>
             <ul id="article-index-ul"></ul>
