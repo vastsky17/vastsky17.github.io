@@ -2,8 +2,9 @@
 
 #echo "开始发布新的主题";
 
-SOURCE='/d/code/libragen.cn';
-DEST='/d/code/dejavuzhou.github.io'
+#SOURCE='/d/code/libragen.cn';
+SOURCE='/d/code/dejavuzhou.github.io'
+DEST='/d/code/libragen.cn';
 
 rm -rf $DEST/_includes;
 rm -rf $DEST/_layouts;

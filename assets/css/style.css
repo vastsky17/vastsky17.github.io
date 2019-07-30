@@ -458,6 +458,7 @@ a {
 
 article p {
     text-indent: 2rem;
+    /*margin-left: 2rem;*/
 }
 
 h2, h3, h4, h5, h6 {
@@ -574,7 +575,15 @@ h2, h3, h4, h5, h6 {
 }
 
 .article-body {
-    margin: 0 3rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 800px) {
+    .article-body {
+        width: 100%;
+        margin: 0 3rem;
+    }
 }
 
 article img {

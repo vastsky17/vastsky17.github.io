@@ -38,6 +38,10 @@ layout: base
         <img src="/assets/image/{{page.coverage}}" alt="{{page.title}}" >
     </div>
     {% endif %}
+
+    {% if page.ref %}
+    <h5> 转载 <a href="{{page.ref}}" rel="nofollow noreferrer" target="_blank">{{page.ref}}</a></h5>
+    {% endif %}
     {{ content }}
 
 
