@@ -449,66 +449,14 @@ func ParseUrlPage(href, div, jekyllDir string) error {
 		ImgFunc: func(alt, src, dataSrc string) (iAlt, iSrc string, err error) {
 			iAlt = "tech.mojotv.cn_" + alt
 			//这么名字做markdown 的路径
-			iSrc = "/assets/pic/" + base64.RawURLEncoding.EncodeToString([]byte("sgmf_"+dataSrc)) + ".jpg"
-			err = downImg(baseUrl, dataSrc, jekyllDir, iSrc)
+			dataSrc = (strings.Split(dataSrc, "?"))[0]
+			goUrl, err := url.Parse(dataSrc)
 			if err != nil {
-				log.Println("下载图片失败,", dataSrc, iSrc)
-				return
+				log.Println(dataSrc)
+				iSrc = "/assets/pic/sgf/" + base64.RawURLEncoding.EncodeToString([]byte(dataSrc)) + ".jpg"
 			}
-			return
-		},
-	}
-	return convert(f, r, opt)
-}
-func ParseUrlPageJianshu(href, div, jekyllDir string) error {
-	urlObj, err := url.Parse(href)
-	if err != nil {
-		return err
-	}
-	baseUrl := urlObj.Scheme + "://" + urlObj.Host
-	//log.Println(baseUrl)
-	client := &http.Client{}
-	mkdFileName := time.Now().Format("2006-01-02") + urlObj.Path + ".md"
-	mkdFileName = strings.Replace(mkdFileName, "/", "-", -1)
-	mkdFilePath := filepath.Join(jekyllDir, "_posts", "golang", mkdFileName)
-	req, err := http.NewRequest("GET", href, nil)
-	if err != nil {
-		return err
-	}
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36")
-	res, err := client.Do(req)
-	if err != nil {
-		return err
-	}
-	if res.StatusCode != 200 {
-		return errors.New("the get request's response code is not 200")
-	}
-	defer res.Body.Close()
-	doc, err := goquery.NewDocumentFromReader(res.Body)
-	if err != nil {
-		return err
-	}
-	title := doc.Find("h1.h1").Text()
-	title = strings.TrimSpace(title)
-	divHtml, err := doc.Find(div).Html()
-	if err != nil {
-		return err
-	}
-	r := bytes.NewBuffer([]byte(divHtml))
-	os.MkdirAll(filepath.Dir(mkdFilePath), os.ModePerm)
-	f, err := os.Create(mkdFilePath)
-	if err != nil {
-		return err
-	}
-	fmt.Fprintf(f, headerFormat, title, title, href)
-	opt := &Option{
-		PreFunc: func(s2 string) (s string, e error) {
-			return "go", nil
-		},
-		ImgFunc: func(alt, src, dataSrc string) (iAlt, iSrc string, err error) {
-			iAlt = "tech.mojotv.cn_" + alt
-			//这么名字做markdown 的路径
-			iSrc = "/assets/pic/" + base64.RawURLEncoding.EncodeToString([]byte("sgmf_"+dataSrc)) + ".jpg"
+			iSrc = "/assets/pic/" + goUrl.Host + "/" + base64.RawURLEncoding.EncodeToString([]byte(goUrl.Path)) + ".jpg"
+
 			err = downImg(baseUrl, dataSrc, jekyllDir, iSrc)
 			if err != nil {
 				log.Println("下载图片失败,", dataSrc, iSrc)
@@ -614,6 +562,11 @@ func downImg(base, uri, imgDir, imgName string) error {
 		return errors.New("the get request's response code is " + res.Status)
 	}
 	defer res.Body.Close()
+	err = os.MkdirAll(filepath.Dir(filePath), 777)
+	if err != nil {
+		return err
+	}
+
 	file, err := os.Create(filePath)
 	if err != nil {
 		return err
