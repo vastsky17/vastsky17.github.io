@@ -575,8 +575,7 @@ h2, h3, h4, h5, h6 {
 }
 
 .article-body {
-    max-width: 800px;
-    margin: 0 auto;
+    margin: 0 2rem;
 }
 
 @media only screen and (max-width: 800px) {
