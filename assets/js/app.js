@@ -63,7 +63,6 @@ var app = new Vue({
     },
     el: '#app',
     data: {
-        isHttps:window.location.protocol.startsWith("https"),
         isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
         articleTitle: '',
         articleUrl: '',
@@ -186,10 +185,7 @@ var app = new Vue({
             return false;
         },
         fetchComment: function (url) {
-            if(this.isHttps){
-                //https 环境下不加载评论
-                return;
-            }
+
             if (!url) {
                 url = this.thisUrl;
             }

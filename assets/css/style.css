@@ -1142,7 +1142,7 @@ pre > code {
 
 /* Inline code */
 :not(pre) > code {
-    color: #673ab7 !important;
+    color: #e91e63 !important;
     font: .85em Consolas, Monaco, 'Andale Mono', monospace;
     background: #fafafa;
     border: 1px solid #e5e8ec;

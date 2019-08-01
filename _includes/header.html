@@ -13,7 +13,7 @@
 <meta name="description " content="{{ page.description | default: page.excerpt | strip_html }}">
 {% endif %}
 <meta name="baidu-site-verification" content="kFeuTdrIEE"/>
-<meta name="msvalidate.01" content="{{site.webmaster_verifications.bing}}"/>
+
 <link rel="shortcut icon" href="{{ site.favicon }}"/>
 <link rel="icon" href="{{ site.favicon }}" sizes="32x32"/>
 <link rel="icon" href="{{ site.favicon }}" sizes="192x192"/>
@@ -23,6 +23,14 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/element.css">
 
+<script>
+    var isM = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (isM) {
+        document.write('<link href="/assets/css/style_m.css" rel="stylesheet" type="text/css" media="screen" />');
+    } else {
+        document.write('<link href="/assets/css/style.css" rel="stylesheet" type="text/css" media="screen" />');
+    }
+</script>
 <meta property="wb:webmaster" content="da7999b4ae4dcf62"/>
 <script async src="https://www.googletagmanager.com/gtag/js?id={{site.ga_id}}"></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -41,10 +49,4 @@
     }
     gtag('js', new Date());
     gtag('config', '{{site.ga_id}}');
-    var isM = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    if (isM) {
-        document.write('<link href="/assets/css/style_m.css" rel="stylesheet" type="text/css" media="screen" />');
-    } else {
-        document.write('<link href="/assets/css/style.css" rel="stylesheet" type="text/css" media="screen" />');
-    }
 </script>
