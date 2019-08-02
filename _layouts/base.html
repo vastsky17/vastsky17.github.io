@@ -27,25 +27,25 @@
             <a href="http://libragen.cn" class="fa fa-money"></a>
         </div>
     </nav> <!-- end #tags -->
-
+    <!--文章列表-->
+    <div class="posts-list" @mouseover="doSetPostList(true)"
+         v-if="!isMobile"
+         @mouseleave="doSetPostList(false)">
+        <form action="" id="search-form">
+            <input id="search-input" ref="search" type="text" placeholder="Search..." v-model.trim="search" autocomplete="off">
+        </form>
+        <section class="article-list">
+            <a :href="item.url" v-for="item in articles" :key="item.url" class="post-li-a"
+               @click.stop.prevent="doView(item)">
+                <span class="post-li-dot"></span>
+                <span class="post-li-title" v-text="item.title"></span>
+                <span class="post-li-time" v-text="humanTime(item.time)"></span>
+            </a>
+        </section>
+    </div> <!-- end #posts-list -->
 
     <div class="main">
-        <!--文章列表-->
-        <div class="posts-list" v-show="showPostList" @mouseover="doSetPostList(true)"
-             v-if="!isMobile"
-             @mouseleave="doSetPostList(false)">
-            <form action="" id="search-form">
-                <input id="search-input" ref="search" type="text" placeholder="Search..." v-model.trim="search" autocomplete="off">
-            </form>
-            <section class="article-list">
-                <a :href="item.url" v-for="item in articles" :key="item.url" class="post-li-a"
-                   @click.stop.prevent="doView(item)">
-                    <span class="post-li-dot"></span>
-                    <span class="post-li-title" v-text="item.title"></span>
-                    <span class="post-li-time" v-text="humanTime(item.time)"></span>
-                </a>
-            </section>
-        </div> <!-- end #posts-list -->
+
 
         <article v-if="pjaxHtml === ''" class="article-body">
             <!--===thisExplodePointPjax===-->

@@ -225,23 +225,8 @@ a {
    Posts List
 \*---------------------------------*/
 .posts-list {
-    position: absolute;
-    z-index: 98;
-    left: 184px;
-    top:0;
-    bottom: 0;
-    max-height: 100vh;
-    display: -webkit-flex; /* Safari */
-    display: flex;
-    flex-direction: column;
-    width: 27rem;
-    background: rgba(250, 250, 250, 0.95);
-    border-right: 1px solid #e5e8ec;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+    display: none!important;
+    visibility: hidden!important;
 }
 
 
