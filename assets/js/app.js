@@ -84,9 +84,6 @@ var app = new Vue({
             return apiHttp;
         },
         isPostPage: function () {
-            if (this.isMobile){
-                return false;
-            }
             var flag = (window.location.pathname !== '/' && window.location.pathname !== '/404');
             return flag;
         },
@@ -185,7 +182,6 @@ var app = new Vue({
             return false;
         },
         fetchComment: function (url) {
-
             if (!url) {
                 url = this.thisUrl;
             }

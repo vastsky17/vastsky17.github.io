@@ -22,7 +22,7 @@
 
 
     <!--评论框-->
-    <h2>评论 <span class="comment-count" v-show="commentCount == 0">   评论数量 :<i v-text="commentCount"></i></span></h2>
+    <h2>评论 <span class="comment-count" v-show="commentCount === 0">   评论数量 :<i v-text="commentCount"></i></span></h2>
     <section class="comment">
         <div class="comment-thread" v-for="(obj,idx) in commentList">
             <span class="avatar">

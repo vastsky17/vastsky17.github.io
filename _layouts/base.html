@@ -54,7 +54,15 @@
         </article>
         <article v-if="pjaxHtml !== ''" v-html="pjaxHtml" class="article-body"></article>
 
-
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="{{site.ga_id}}"
+             data-ad-slot="5020784473"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
         {% include addons.html %}
         {% include base_copyright.html %}
 
@@ -63,7 +71,7 @@
 
     </section>
     <!--markdwon 导航栏-->
-    <div id="article-index" v-if="isPostPage">
+    <div id="article-index" v-if="isPostPage || !isMobile">
         <div id="post__toc">
             <span id="article-index-title">目录</span>
             <ul id="article-index-ul"></ul>
