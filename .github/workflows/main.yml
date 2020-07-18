@@ -21,23 +21,27 @@ jobs:
         uses: actions/checkout@v2
       - name: SpiderHN
         run: go run main.go spider
+      - name: show files
+        run: ls -al _posts/hacknews  
       
-      - name: Git Commit/Push Changes
-        uses: actions-x/commit@v1
+      - name: Git Commit and Push
+        uses: github-actions-x/commit@v2.6
         with:
-          # The committer's email address
-          email: ActionBot@mojotv.cn # default is ${{ github.actor }}@localhost
-          # The committer's name
-          name: ActionBotOfMojo # default is ${{ github.actor }}
-          # The commit message
-          message: # default is Automatically updated using GitHub Actions
-          # The branch to push the changes back to, defaults to the current branch
-          branch: # default is ${{ github.ref }}
-          # The files to add separated by space, defaults to every file
-          files: # default is .
-          # The repository to push the code to, defaults to origin (e.g. this repository)
-          repository: # default is origin
-          # The token used to push the code, not needed if you push to the same repository
-          token: # default is ${{ github.token }}
+          # Github Token with commit access
+          github-token:  ${{ secrets.GITHUB_TOKEN }}
+          # Override branch to push to
+          push-branch: # optional
+          # Specify commit message
+          commit-message: # optional, default is autocommit
+          # Force add files, useful for adding ignored files.
+          force-add: # optional, default is false
+          # Pull and rebase before commiting. Useful when using commit inside matrix.
+          rebase: # optional, default is false
+          # Specific files to add.
+          files: . # optional, default is 
+          # Committer email. Default is ${name}@users.noreply.github.com
+          email: neochau@gmail.com # optional, default is 
+          # Committer name. Default is name of the person or app that initiated the workflow.
+          name: ActionBot # optional, default is 
   
 
