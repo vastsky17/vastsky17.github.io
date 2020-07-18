@@ -1,0 +1,45 @@
+on:
+  issues:
+    types: [opened, edited, reopened]
+  schedule:
+  - cron: "* */2 * * *"  
+  
+name: Bot
+jobs:
+  test:
+    strategy:
+      matrix:
+        go-version: [1.14.x]
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: ${{ matrix.go-version }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: SpiderHN
+        run: go run main.go spider
+      
+      - name: Add & Commit
+        uses: EndBug/add-and-commit@v4.2.1
+        with:
+          # Arguments for the git add command
+          add: # optional, default is .
+          # The name of the user that will be displayed as the author of the commit
+          author_name: ActionBot # optional
+          # The email of the user that will be displayed as the author of the commit
+          author_email: neochau@gamil.com # optional
+          # The directory where your repository is located. You should use actions/checkout first to set it up
+          cwd: # optional, default is .
+          # Whether to use the force option on git add, in order to bypass eventual gitignores
+          force: true # optional, default is false
+          # The message for the commit
+          message: # optional, default is Commit from GitHub Actions
+          # Name of the branch to use, if different from the one that triggered the workflow
+          ref: # optional
+          # Arguments for the git rm command
+          remove: # optional, default is 
+          # The name of the tag to add to the new commit
+          tag: # optional, default is 
