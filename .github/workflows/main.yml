@@ -22,7 +22,7 @@ jobs:
       - name: SpiderHN
         run: go run main.go spider
       - name: show files
-        run: ls -al _posts/hacknews  
+        run: git status && ls -al _posts/hacknews  
       
       - name: Git Commit and Push
         uses: github-actions-x/commit@v2.6
