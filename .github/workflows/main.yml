@@ -1,12 +1,11 @@
 on:
-  issues:
-    types: [opened, edited, reopened]
+
   schedule:
   - cron: "* */2 * * *"  
   
-name: Bot
+name: Spider
 jobs:
-  test:
+  Bot:
     strategy:
       matrix:
         go-version: [1.14.x]
