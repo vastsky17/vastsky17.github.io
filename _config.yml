@@ -17,7 +17,7 @@ title: Libra中文网
 description: Libra中文网:最权威的facebook libra数字货币资讯分享网站
 url: https://libragen.cn
 rss_url: /pages/atom.xml
-comment_api: https://felix.mojotv.cn:2222
+comment_api: https://felix.mojotv.cn
 
 # avatar头像及Favicon
 avatar: /assets/image/libra_icon.jpg
