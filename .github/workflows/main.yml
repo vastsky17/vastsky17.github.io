@@ -28,7 +28,7 @@ jobs:
         uses: github-actions-x/commit@v2.6
         with:
           # Github Token with commit access
-          github-token:  ${{ secrets.GITHUB_TOKEN }}
+          github-token:  ${{ secrets.JGT }}
           # Override branch to push to
           push-branch: # optional
           # Specify commit message
