@@ -1,6 +1,6 @@
 package main
 
-import "libragen/cmd"
+import "gojekyll/cmd"
 
 var buildTime, gitHash string
 
