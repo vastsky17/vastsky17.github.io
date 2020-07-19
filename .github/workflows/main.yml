@@ -27,9 +27,9 @@ jobs:
           # Override branch to push to
           push-branch: # optional
           # Specify commit message
-          commit-message: # optional, default is autocommit
+          commit-message: 'spider-bot-https://mojotv.cn' # optional, default is autocommit
           # Force add files, useful for adding ignored files.
-          force-add: # optional, default is false
+          force-add: 'true' # optional, default is false
           # Pull and rebase before commiting. Useful when using commit inside matrix.
           rebase: 'true' # optional, default is false
           # Specific files to add.
