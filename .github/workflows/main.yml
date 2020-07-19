@@ -35,7 +35,7 @@ jobs:
           # Force add files, useful for adding ignored files.
           force-add: # optional, default is false
           # Pull and rebase before commiting. Useful when using commit inside matrix.
-          rebase: # optional, default is false
+          rebase: 'true' # optional, default is false
           # Specific files to add.
           files: . # optional, default is 
           # Committer email. Default is ${name}@users.noreply.github.com
