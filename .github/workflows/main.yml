@@ -1,5 +1,6 @@
 on:
-
+  issues:
+    types: [opened, edited, reopened,closed]
   schedule:
   - cron: "* */2 * * *"  
   
