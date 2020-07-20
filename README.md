@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.com/dejavuzhou/dejavuzhou.github.io.svg?branch=master)](https://travis-ci.com/dejavuzhou/dejavuzhou.github.io)
-
+![Spider](https://github.com/mojocn/libragen.cn/workflows/Spider/badge.svg)
 
 
 ### `{{` 于jekyll 的语法冲突
