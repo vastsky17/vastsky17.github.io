@@ -34,8 +34,8 @@ jobs:
           # Specific files to add.
           files: . # optional, default is 
           # Committer email. Default is ${name}@users.noreply.github.com
-          email: neochau@gmail.com # optional, default is 
+          email: dejavuzhou@qq.com # optional, default is 
           # Committer name. Default is name of the person or app that initiated the workflow.
-          name: ActionBot # optional, default is 
+          name: mojocn # optional, default is 
   
 
