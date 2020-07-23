@@ -38,7 +38,7 @@ exclude: [robot,util,config,tutorials,main.go,install.sh,jekyll.sh,Gemfile,Gemfi
 ga_id: UA-129013660-6
 
 # google adsense ID
-gad_id: ca-pub-8488823422266592
+gad_id: pub-6269173703140859
 
 webmaster_verifications:
   google: 1234
