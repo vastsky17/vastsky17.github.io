@@ -4,7 +4,7 @@ title: 幻音异游工作室
 keywords: 小说 绘画
 description: 专业设计小说
 date: 2022/4/4/11/29
-coverage: libra_coverage.png
+coverage: /assets/image/20220311141451.png
 category: News
 tags: Home
 ---
