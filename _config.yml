@@ -20,9 +20,9 @@ rss_url: /pages/atom.xml
 comment_api: https://felix.mojotv.cn
 
 # avatar头像及Favicon
-avatar: https://github.com/vastsky17/vastsky17.github.io/blob/master/20220311141451.png
-favicon: https://github.com/vastsky17/vastsky17.github.io/blob/master/20220311141451.png
-logo: https://github.com/vastsky17/vastsky17.github.io/blob/master/20220311141451.png
+avatar: /assets/image/20220311141451.png
+favicon: /assets/image/20220311141451.png
+logo: /assets/image/20220311141451.png
 s_bing: F71F639CAE579E63E44E43522ADED67F
 # Jekyll Plugin
 # https://help.github.com/articles/adding-jekyll-plugins-to-a-github-pages-site/
