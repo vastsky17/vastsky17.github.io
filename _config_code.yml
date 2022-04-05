@@ -20,8 +20,8 @@ comment_api: http://home.mojotv.cn:2222
 
 # avatar头像及Favicon
 avatar: file:///C:/Users/31393/Desktop/psc.jpg
-favicon: /assets/image/libra_icon.jpg
-logo: /assets/image/libra_icon.jpg
+favicon: file:///C:/Users/31393/Desktop/psc.jpg
+logo: file:///C:/Users/31393/Desktop/psc.jpg
 
 # Jekyll Plugin
 # https://help.github.com/articles/adding-jekyll-plugins-to-a-github-pages-site/
