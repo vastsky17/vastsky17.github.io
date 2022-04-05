@@ -6,16 +6,16 @@ sass:
   style: compressed
 # 作者信息
 author:
-  name: Libragen Eric Zhou
-  email: dejavuzhou@qq.com
-  link: http://captcha.mojotv.cn
-  weibo: http://weibo.com/u/2706451481?is_all=1
-  github: http://github.com/dejavuzhou
+  name: 幻音异游工作室
+  email: 3139348034@qq.com
+  link: dot have
+  weibo: dot have
+  github: https://github.com/vastsky17?tab=repositories
 
 # 站点信息
-title: Libra中文网
-description: Libra中文网:最权威的facebook libra数字货币资讯分享网站
-url: https://libragen.cn
+title: 幻音异游工作室
+description: 文学讨论社
+url: vastsky17.github.io
 rss_url: /pages/atom.xml
 comment_api: https://felix.mojotv.cn
 
