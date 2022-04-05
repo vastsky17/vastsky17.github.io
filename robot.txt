@@ -1,6 +1,6 @@
 <<<<<<< Updated upstream
 ---
-title : Sitemap
+title : hyyy
 ---
 
 {% if site.url == 'http://code.mojotv.cn' %}
