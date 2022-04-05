@@ -24,8 +24,7 @@ tags: Home
 
 ## 联系我
 
-- [neochau@gmail.com](neochau@gmail.com)
-- [tech.mojotv.cn](https;//tech.mojotv.cn)
+- [3139348034@qq.com](3139348034@qq.com)
 - [Github-dejavuzhou](https://github.com/dejavuzhou)
 - [Github-mojocn](https://github.com/mojocn)
 - [开源项目](http://captcha.mojotv.cn)
