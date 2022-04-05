@@ -20,9 +20,9 @@ rss_url: /pages/atom.xml
 comment_api: https://felix.mojotv.cn
 
 # avatar头像及Favicon
-avatar: /assets/image/libra_icon.jpg
-favicon: /assets/image/libra_icon.jpg
-logo: /assets/image/libra_icon.jpg
+avatar: file:///C:/Users/31393/Desktop/psc.jpg
+favicon: file:///C:/Users/31393/Desktop/psc.jpg
+logo: file:///C:/Users/31393/Desktop/psc.jpg
 s_bing: F71F639CAE579E63E44E43522ADED67F
 # Jekyll Plugin
 # https://help.github.com/articles/adding-jekyll-plugins-to-a-github-pages-site/
